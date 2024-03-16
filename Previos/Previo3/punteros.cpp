@@ -6,6 +6,31 @@ struct Distance{
     float inch;
 };
 
+//Funcion toma 2 referencias de enteros
+//una referencia es un alias, es decir, otro nombre para un objeto existente.
+// Proporciona una forma de acceder a un objeto utilizando un nombre diferente.
+// Las referencias se utilizan principalmente en dos contextos:
+/*Parámetros de funciones: Se utilizan para pasar argumentos a funciones de manera que la función
+ pueda modificar el valor de la variable original. Esto se logra pasando la referencia del objeto
+ en lugar de una copia del objeto.*/
+
+ /*
+ Devolución de valores de funciones: Las funciones también pueden devolver referencias. 
+ Esto permite que una función devuelva un valor que se puede modificar directamente.
+ */
+void swap(int &n1, int &n2){
+    int temp;
+    temp = n1;
+    n1 = n2;
+    n2 = temp;
+}
+
+void swap_2(int *n1, int *n2){
+    int temp;
+    temp = *n1;
+    *n1 = *n2;
+    *n2 = temp;
+}
 
 int main(){
 
@@ -80,7 +105,56 @@ int main(){
     cout << "*(ptr + 1) es equiv. a arr[1] : " << *(ptr_2 + 1) <<endl;
     cout << "*(ptr + 2) es equiv. a arr[2] : " << *(ptr_2 + 2) <<endl;
     cout << "*(ptr + 3) es equiv. a arr[3] : " << *(ptr_2 + 3) <<endl;
+    
+    //Paso de parametros de referencia sin punteros
+    int a =1, b =2;
 
+    cout << "Antes de cambiar" << endl;
+    cout << "a = " << a <<endl;
+    cout << "b = " << b <<endl;
+
+    //Parametros por referencia
+    swap(a,b);
+    cout << "Despues de cambiar" << endl;
+    cout << "a = " << a <<endl;
+    cout << "b = " << b <<endl;
+
+    //Parametros por referencia con punteros
+
+    int c =3, e =4;
+
+    cout << "Antes de cambiar" << endl;
+    cout << "c = " << c <<endl;
+    cout << "e = " << e <<endl;
+
+    cout << "Antes de cambiar" << endl;
+    cout << "&c = " << &c <<endl;
+    cout << "&e = " << &e <<endl;
+    
+    //Parametros por referencia
+    //Altera el valor de las variables originales mediante punteros, sin necesidad de enviar una copia.
+    swap_2(&c,&e);
+    cout << "Despues de cambiar" << endl;
+    cout << "c = " << c <<endl;
+    cout << "e = " << e <<endl;
+
+    //Punteros dobule
+    int result_init = 2905;
+    int* ptr_1;
+    //Referencio el puntero con la direccion en memoria de result_init
+    ptr_1 = &result_init;
+
+    cout <<"Direccion memoria de result_init: " << &result_init<< endl;
+    cout <<"Direccion memoria de ptr_1: " << ptr_1<< endl;
+
+    //Se crea un puntero que apunta al valor de memoria de ptr1
+
+    int** ptr_ptr_1;
+    ptr_ptr_1 = &ptr_1 ;
+
+    cout <<" ptr_2: " << ptr_ptr_1<< endl;
+    cout << "Direcion de &ptr_1: " << &ptr_1<<endl;
+    cout << "Direccion de &ptr_2: " << &ptr_ptr_1<<endl;
     return 0;
 }
 
