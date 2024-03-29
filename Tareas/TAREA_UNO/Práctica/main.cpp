@@ -15,7 +15,7 @@
         VER,
         SALIR
     };
-
+    //enum con niveles de dificultad, empezando por 1
     enum Niveles {
         FACIL = 1,
         INTERMEDIO ,
@@ -94,6 +94,7 @@
 
             case INICIAR:
                 std::cout << "Intentos maximos: " << ptr->max <<endl;
+                std::cout << "Ingrese una palabra: " <<endl;
                 //Imprimo la palabra en guiones
                 for (int i = 0; i < play.palabra.size(); i++){
                     cout << "_\t";
