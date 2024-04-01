@@ -34,7 +34,7 @@
         do {
             //Dejo la funcion inicializar en este punto para poder selecionar una palabra aleatoria
             //Estando fuera del do-while el programa se queda con una unica palabra y no varia
-            Inicializar(ptr, words);
+            inicializar(ptr, words);
             //En caso de que el array con los niveles de dificultad tenga un tamaño mayor a cero, es decir
             //No esta vacio
             //Agarro la ultima posicion del arreglo, cambiando el valor de max objeto tipo juego
@@ -99,21 +99,21 @@
                 for (int i = 0; i < play.palabra.size(); i++){
                     cout << "_\t";
                 }
-                Adivinar(&play);
+                adivinar(&play);
                 break;
 
             case AGREGAR:
                 std::cout << "Ingrese una palabra: ";
                 std::cin >> intro_palabra;
                 stdd:cout << endl;
-
-                if(intro_palabra.size()){
+                //Pregunto por la extension del array, el el struct hay un array qe contiene todas las letras
+                //De la palabra y es de longitud 15
+                if(intro_palabra.size()>0 && intro_palabra.size()<=15){
                 //Usando std::transform junto con std::tolower para convertir a minúsculas
                 transform(intro_palabra.begin(), intro_palabra.end(), intro_palabra.begin(),[](unsigned char c) { return tolower(c); });
                 cout << intro_palabra << endl;
 
-                //Si la palabra no contine caracteres en espanol la agrego al dicionario
-                //if (!isSpanish(intro_palabra)){
+                //Inserto palabra en el array
                 words.push_back(intro_palabra);
                 cout << "La palabra: " << intro_palabra << " ha sido agregada exitosamente";
                 //}

@@ -13,7 +13,7 @@
 using namespace std;
 
 //Envio un puntero de tipo Juego y un array con palabras pre cargadas
-void Inicializar(Juego* play1, vector<string> array){
+void inicializar(Juego* play1, vector<string> array){
 
     //Array tipo string con 10 elementos
     //array<string, 10> array = {"perro", "gato", "casa", "arbol", "libro", "manzana", "rojo", "verde", "curso", "sol"};
@@ -38,7 +38,7 @@ void Inicializar(Juego* play1, vector<string> array){
 
 }
 //Anadir robustez como ingresar solo una letra, no numeros ni espacios vacios
-void Adivinar(Juego* play1){
+void adivinar(Juego* play1){
     //int count = 0;
     //dicionario key int, value char
     map<int, char> dict;
@@ -93,6 +93,25 @@ void Adivinar(Juego* play1){
             }
         }
 
+
+        //anado robustez, debido a problema de insertar en el dicionario letras incorrectas
+        // y letras repetidas mal
+        //Nuevo dicionario, sirve de filtro
+        std::map<int, char> nuevoDict;
+        //se utiliza para acceder a cada par clave-valor en un std::map de forma segura
+        // y eficiente, sin permitir que el contenido de los pares se modifique accidentalmente
+        // durante la iteración.
+        for (const auto& par : dict) {
+            //se cumple si el caracter par.second está presente en la cadena palabra,
+            // es decir, si find() devuelve un valor diferente a std::string::npos.
+            if (play1->palabra.find(par.second) != std::string::npos) {
+                //inserto en el nuevo dicionario
+                nuevoDict.insert(par);
+            }
+        }
+        //Actualizo el dicionario con el filtro
+        dict = nuevoDict;
+
         //Caso de encontrar una letra en palabra, procedo a imprimir
         if (flag_1){
             //Desde cero hasta la longitude de palabra -1
@@ -120,7 +139,7 @@ void Adivinar(Juego* play1){
                         std ::cout << letra <<"\t";
                     }
             }
-             std ::cout << "\nIntento Fallido" << std ::endl;   
+             std ::cout << "\nIntento Acertado" << std ::endl;   
         }
 
         //Se ejecuta el else cuando no hay match
@@ -132,7 +151,7 @@ void Adivinar(Juego* play1){
         }
         
         
-    } while ( !Verificar(dict, play1));
+    } while ( !verificar(dict, play1));
     
 }
 
@@ -162,7 +181,7 @@ bool letrasRepetidas(const std::string& palabra) {
 //Retorna un boleano cuando es true; termino el do while, false continuo el ciclo
 //Puedo acceder al valor de la variable play1->intentos i modificarlo con &intentos
 //OJO EMPLEAR ESTO POR PUNTEROS
-bool Verificar(map<int, char> dict, Juego* play1){
+bool verificar(map<int, char> dict, Juego* play1){
     string var;
     string tex_concat;
     //Formo una palabra de acuerdo a lo que voy llenando en el dicionario
@@ -170,9 +189,23 @@ bool Verificar(map<int, char> dict, Juego* play1){
         //accedo al value del diccionario
         tex_concat += par.second;
     }
-
+    //Puede que se agrege una o más letras de más sobre todo si son letras repetidas en el dicionario
+    //y que la palabra ingresada ya se haya completado, por tal razon el juego no termina, por eso se 
+    //agregan las siguientes lineas de codigo para solventar dicho problema.
+    //en este escenario ya se ingreso la palabra correcta, pero por defecto esta palabra contiene algun caracter
+    //erroneo, ejemplo rojoo, se ingresan dos o al final y la palabra correcta nada más tiene una
+    if (tex_concat.size() > play1->palabra.size()){
+        tex_concat = play1->palabra;
+    }
+    
     play1->intentos+=1;
     cout<< "\nIntentos: " << (play1->max - play1->intentos) << endl;
+
+    //Caso donde se acierta toda la palabra
+    if ( tex_concat == play1->palabra){
+    cout << "Ha GANADO" << endl;
+    return true;
+    }
 
     //Caso donde se agota la cantidad de intentos
     if (play1->intentos == play1->max){
@@ -202,11 +235,6 @@ bool Verificar(map<int, char> dict, Juego* play1){
         cout << "GAME OVER, palabra correcta: " << play1->palabra;
         return true;
     } 
-
-    if ( tex_concat == play1->palabra){
-        cout << "Ha GANADO" << endl;
-        return true;
-    }
 
     return false;
 }
