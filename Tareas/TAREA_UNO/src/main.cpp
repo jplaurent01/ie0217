@@ -1,11 +1,17 @@
+// Nombre del archivo: main.cpp
+//
+// Descripción: Este archivo realiza el llamado a las inicializar, adivinar, por otro lado tiene dos menus
+//el primero se encarga de elegir un nivel de dificultad (por defecto 10 intentos), iniciar una partida,
+//agregar una nueva palabra a un array pre inicializado, ver las palabras del array y salir, por ultimo,
+//el ultimo menu seleciona los niveles de dificultad alterando la cantidad de intetnos establecida por defecto.
+//
+// Copyright (c) 2022 Jose Pablo Laurent Chaves
+// Licencia: MIT
+    
     #include <iostream>
     #include "Juego.hpp"
     #include "Funciones.hpp"
     #include <algorithm> 
-
-    //No ejecuta esta codigo
-    //Sustituye todas las variables MAX_CONTACTOS les pone 100 yluego ejecuta
-    #define MAX_CONTACTOS 100
 
     //Contenido de defines contenidos en 1, solo tiene valores numericos y se llaman atraves de variables
     enum Opciones {
@@ -21,7 +27,14 @@
         INTERMEDIO ,
         DIFICIL  
     };
-
+    /**
+     * @brief Se realiza el llamado a funciones y contiene la logica del programa.
+     * 
+     * Esta funciones de inicializar y adivinar, contiene menus para la interacion del usuario.
+     * 
+     * 
+     * @return 0 cuando el programa se ha terminado de ejecutar.
+     */
     int main() {
         int opcion;
         Juego *ptr, play;
