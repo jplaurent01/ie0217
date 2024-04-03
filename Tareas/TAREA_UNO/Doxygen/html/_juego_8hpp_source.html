@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tarea 1: Archivo de código fuente C:/Users/Administrador/Documents/Estructuras_de_Datos_y_Algoritmos/repos/ie0217/Tareas/TAREA_UNO/src/Juego.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="descarga.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">Tarea 1<span id="projectnumber">&#160;1.0</span>
+   </div>
+   <div id="projectbrief">Comentarios Tarea 1 doxygen</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">Juego.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_juego_8hpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Nombre del archivo: juego.hpp</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Descripción:Este archivo contiene una estructura sin inicializar con atributos de una partida de ahorcado.</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// Copyright (c) 2022 Jose Pablo Laurent Chaves</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// Licencia: MIT</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#ifndef JUEGO_HPP</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define JUEGO_HPP</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using namespace </span>std;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//Se crea tipo de dato tipo Contacto con atributos de nombre y telefono</span></div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="struct_juego.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_juego.html">Juego</a>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="struct_juego.html#a90ce914ce108220690bde16f3731b335">   24</a></span>    <span class="keywordtype">string</span> <a class="code hl_variable" href="struct_juego.html#a90ce914ce108220690bde16f3731b335">palabra</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_juego.html#a30f01c84e240594c283b6f533603388e">   25</a></span>    <span class="keywordtype">string</span> <a class="code hl_variable" href="struct_juego.html#a30f01c84e240594c283b6f533603388e">array</a>[15];</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="struct_juego.html#a115a4fb9367a81709a7ae9fb3edfd28c">   26</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_juego.html#a115a4fb9367a81709a7ae9fb3edfd28c">max</a>; </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="struct_juego.html#a472986985215f4e3eb71fed4393aec56">   27</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_juego.html#a472986985215f4e3eb71fed4393aec56">intentos</a>; </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>};</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#endif </span><span class="comment">//JUEGO_HPP</span></div>
+<div class="ttc" id="astruct_juego_html"><div class="ttname"><a href="struct_juego.html">Juego</a></div><div class="ttdoc">Struct que representa un juego de ahorcado.</div><div class="ttdef"><b>Definition</b> Juego.hpp:22</div></div>
+<div class="ttc" id="astruct_juego_html_a115a4fb9367a81709a7ae9fb3edfd28c"><div class="ttname"><a href="struct_juego.html#a115a4fb9367a81709a7ae9fb3edfd28c">Juego::max</a></div><div class="ttdeci">int max</div><div class="ttdoc">El numero maximo de intentos permitidos.</div><div class="ttdef"><b>Definition</b> Juego.hpp:26</div></div>
+<div class="ttc" id="astruct_juego_html_a30f01c84e240594c283b6f533603388e"><div class="ttname"><a href="struct_juego.html#a30f01c84e240594c283b6f533603388e">Juego::array</a></div><div class="ttdeci">string array[15]</div><div class="ttdoc">Estado actual de la palabra adivinada (letras adivinadas y letras aun no adivinadas).</div><div class="ttdef"><b>Definition</b> Juego.hpp:25</div></div>
+<div class="ttc" id="astruct_juego_html_a472986985215f4e3eb71fed4393aec56"><div class="ttname"><a href="struct_juego.html#a472986985215f4e3eb71fed4393aec56">Juego::intentos</a></div><div class="ttdeci">int intentos</div><div class="ttdoc">El numero actual de intentos realizados.</div><div class="ttdef"><b>Definition</b> Juego.hpp:27</div></div>
+<div class="ttc" id="astruct_juego_html_a90ce914ce108220690bde16f3731b335"><div class="ttname"><a href="struct_juego.html#a90ce914ce108220690bde16f3731b335">Juego::palabra</a></div><div class="ttdeci">string palabra</div><div class="ttdoc">La palabra a adivinar.</div><div class="ttdef"><b>Definition</b> Juego.hpp:24</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>
