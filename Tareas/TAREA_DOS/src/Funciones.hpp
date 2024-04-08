@@ -11,11 +11,18 @@
 #include <string>
 #include "Planeta.hpp"
 #include "Continentes.hpp"
+#include "PaisPrimerMundo.hpp"
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <unordered_map>
 
- //Copia de listaContactos[] y referencia de &numContactos para modificar su valor
-void imprimirPlaneta(Planeta tierra);
-
+//Envio un objeto planeta y una copia de un dicionario con instruciones para crear paises.
+void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta);
+//Funcion determina si un numero es o no es primo.
+bool isPrimo(int num);
+//Funcion que me filtra la informacion de acuerdo al continente:
+void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &noPrimos0, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta, vector<PaisPrimerMundo> &paisesPrimerMundoContinente);
+//Convierto de string a booleano
+bool stringToBool(const string& str);
 #endif //FUNCIONES_HPP

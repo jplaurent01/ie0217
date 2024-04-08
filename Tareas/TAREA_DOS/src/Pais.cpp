@@ -8,8 +8,8 @@
 #include "Pais.hpp"
  
 //constructor de la clase 
-Pais::Pais(int _id, int _habitantes) :
-id(_id), habitantes(_habitantes){}
+Pais::Pais(string _name, int _id, int _habitantes) :
+name(_name), id(_id), habitantes(_habitantes){}
 
 //Metodo double devuelve el Pib
 double Pais::calcularPib() const {

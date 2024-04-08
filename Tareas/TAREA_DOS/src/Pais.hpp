@@ -16,11 +16,12 @@ using namespace std;
 
 class Pais{
     protected:
+        string name;
         int id;
         int habitantes;
         double pib;
         //Constructor de la clase
-        Pais(int _id, int _habitantes);
+        Pais(string _name, int _id, int _habitantes);
     
     public:
         virtual double calcularPib() const;
