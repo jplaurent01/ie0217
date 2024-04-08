@@ -26,7 +26,7 @@ class PaisPrimerMundo : public Pais{
         void mostrarDetalles();
     private:
         //Metodo calcular cuanta gente trabaja y no de forma aleatoria
-        void calcularTrabajo(int habitantes);
+        string calcularTrabajo(int habitantes);
     
 };
 

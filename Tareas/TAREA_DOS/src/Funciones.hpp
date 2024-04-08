@@ -12,6 +12,7 @@
 #include "Planeta.hpp"
 #include "Continentes.hpp"
 #include "PaisPrimerMundo.hpp"
+#include "PaisEnDesarrollo.hpp"
 #include <vector>
 #include <random>
 #include <algorithm>
@@ -22,7 +23,7 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
 //Funcion determina si un numero es o no es primo.
 bool isPrimo(int num);
 //Funcion que me filtra la informacion de acuerdo al continente:
-void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &noPrimos0, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta, vector<PaisPrimerMundo> &paisesPrimerMundoContinente);
+void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &noPrimos0, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta, vector<PaisPrimerMundo> &paisesPrimerMundoContinente, vector<PaisEnDesarrollo> &paisesEnDesarrolloContinente);
 //Convierto de string a booleano
 bool stringToBool(const string& str);
 #endif //FUNCIONES_HPP

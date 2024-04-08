@@ -22,7 +22,7 @@ bool stringToBool(const string& str) {
 }
 
 //Funcion que me filtra la informacion de acuerdo al continente:
-void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &noPrimos0, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta,  vector<PaisPrimerMundo> &paisesPrimerMundoContinente){
+void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &noPrimos0, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta,  vector<PaisPrimerMundo> &paisesPrimerMundoContinente, vector<PaisEnDesarrollo> &paisesEnDesarrolloContinente){
 
     if (keyWord == "Oceania" || keyWord == "Asia" || keyWord == "Africa" || keyWord == "Europa" || keyWord == "America"){
         //Busco en el dicionario de acuerdo a la palabra clave, en relacion con el continente
@@ -41,6 +41,8 @@ void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &
                     paisesPrimerMundoContinente.push_back(PaisPrimerMundo(par.first, stoi(par.second[3]), stoi(par.second[4]), stringToBool(par.second[0]), stringToBool(par.second[1]), stringToBool(par.second[2])));
                     primos0++;
                 } else {
+                    //Nombre, id, habitantes, aeropuerto
+                    paisesEnDesarrolloContinente.push_back(PaisEnDesarrollo(par.first, stoi(par.second[3]), stoi(par.second[4]), stringToBool(par.second[1])));
                     noPrimos0++;
                 }
             }
@@ -135,12 +137,17 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
     vector<PaisPrimerMundo> paisesPrimerMundoContinente2;
     vector<PaisPrimerMundo> paisesPrimerMundoContinente3;
 
+    //Vector de constructores paises en desarrollo
+    vector<PaisEnDesarrollo> paisesEnDesarrolloContinente1;
+    vector<PaisEnDesarrollo> paisesEnDesarrolloContinente2;
+    vector<PaisEnDesarrollo> paisesEnDesarrolloContinente3;
+
     //Caso para el 1er continente por donde pasa el avion.
-    filterByContinent(tierra.selectedContinents[0], cantidadPaises0, primos0, noPrimos0, instrucionesPlaneta, paisesPrimerMundoContinente1);
+    filterByContinent(tierra.selectedContinents[0], cantidadPaises0, primos0, noPrimos0, instrucionesPlaneta, paisesPrimerMundoContinente1, paisesEnDesarrolloContinente1);
     //Caso para el 2do continente por donde pasa el avion.
-    filterByContinent(tierra.selectedContinents[1], cantidadPaises1, primos1, noPrimos1, instrucionesPlaneta, paisesPrimerMundoContinente2);
+    filterByContinent(tierra.selectedContinents[1], cantidadPaises1, primos1, noPrimos1, instrucionesPlaneta, paisesPrimerMundoContinente2, paisesEnDesarrolloContinente2);
     //Caso para el 3er continente por donde pasa el avion.
-    filterByContinent(tierra.selectedContinents[2], cantidadPaises2, primos2, noPrimos2, instrucionesPlaneta, paisesPrimerMundoContinente3);
+    filterByContinent(tierra.selectedContinents[2], cantidadPaises2, primos2, noPrimos2, instrucionesPlaneta, paisesPrimerMundoContinente3, paisesEnDesarrolloContinente3);
 
     //se crean los tres objetos de los continentes por donde pasa el avion.
     Continentes continente1(tierra.selectedContinents[0], cantidadPaises0, noPrimos0, primos0);
@@ -160,16 +167,42 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
         for (auto& pais : paisesPrimerMundoContinente1) {
             pais.mostrarDetalles();
         }
-    cout <<"\n Paises desarrollados de " << tierra.selectedContinents[1] << ":" <<endl;
+    cout <<"\n Paises de primer mundo de " << tierra.selectedContinents[1] << ":" <<endl;
                 // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
         for (auto& pais : paisesPrimerMundoContinente2) {
             pais.mostrarDetalles();
         }
-    cout <<"\n Paises desarrollados de " << tierra.selectedContinents[2] << ":" <<endl;
+    cout <<"\n Paises de primer mundo de " << tierra.selectedContinents[2] << ":" <<endl;
                 // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
         for (auto& pais : paisesPrimerMundoContinente3) {
             pais.mostrarDetalles();
         }
+
+
+     //Informacion paises en desarrollo, la idea es crear un vector de paises de 1er mundo y en desarrollo
+    //el vector lo que guarda son los constructrores de los paises.
+    cout <<"\nInformacion sobre los paises en desarrollo: \n";
+    cout <<"\n Paises en desarrollado de " << tierra.selectedContinents[0] << ":" <<endl;
+        // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
+        for (auto& pais : paisesEnDesarrolloContinente1) {
+            pais.mostrarDetalles();
+        }
+    cout <<"\n Paises en desarrollado de " << tierra.selectedContinents[1] << ":" <<endl;
+                // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
+        for (auto& pais : paisesEnDesarrolloContinente2) {
+            pais.mostrarDetalles();
+        }
+    cout <<"\n Paises en desarrollado de " << tierra.selectedContinents[2] << ":" <<endl;
+                // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
+        for (auto& pais : paisesEnDesarrolloContinente3) {
+            pais.mostrarDetalles();
+        }
 }
+
+
+
+
+
+
 
 
