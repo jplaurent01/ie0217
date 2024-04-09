@@ -1,3 +1,10 @@
+# Tarea 2
+
+
+Debe ejecutar el código con el siguiente comando dentro de la carpeta **src**:
+```
+g++ -o main.exe .\main.cpp .\Planeta.cpp .\Funciones.cpp .\Continentes.cpp .\Pais.cpp .\PaisPrimerMundo.cpp .\PaisEnDesarrollo.cpp
+```
 1. ¿Qué es la programación orientada a objetos y cuáles son sus principales principios?
 2. Explique el concepto de ocultamiento de datos y cómo se logra en C++.
 3. ¿Cuál es la diferencia entre una clase y un objeto en C++?

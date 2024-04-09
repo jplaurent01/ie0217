@@ -19,11 +19,22 @@
 #include <unordered_map>
 
 //Envio un objeto planeta y una copia de un dicionario con instruciones para crear paises.
-void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta);
+void imprimirPlaneta(Planeta tierra, unordered_map<std::string,
+std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta);
 //Funcion determina si un numero es o no es primo.
 bool isPrimo(int num);
 //Funcion que me filtra la informacion de acuerdo al continente:
-void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &noPrimos0, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta, vector<PaisPrimerMundo> &paisesPrimerMundoContinente, vector<PaisEnDesarrollo> &paisesEnDesarrolloContinente);
+void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0,
+ int &noPrimos0, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta,
+  vector<PaisPrimerMundo> &paisesPrimerMundoContinente, vector<PaisEnDesarrollo> &paisesEnDesarrolloContinente);
 //Convierto de string a booleano
 bool stringToBool(const string& str);
+//Funcion agrega un nuevo pais por continente al vector.
+void agregarInformacion(string nombreContinente,
+ unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> &instrucionesPlaneta);
+ //Funcion determina se el id o pais está repetido
+ bool idIsUnique(string num, string nombrePais,
+ unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta);
+ //convierto de booleano a string
+ string boolToString(bool valor) ;
 #endif //FUNCIONES_HPP

@@ -20,6 +20,14 @@ enum Opciones {
     SALIR
 };
 
+enum Opciones2 {
+    CONTINENTE1 = 1,
+    CONTINENTE2,
+    CONTINENTE3,
+    CONTINENTE4,
+    CONTINENTE5,
+    OUT
+};
 /**
      * @brief Se realiza el llamado a funciones y contiene la logica del programa.
      * 
@@ -37,37 +45,22 @@ enum Opciones {
         {"America", {
             {"Estados Unidos", {"true", "true", "true", "2", "331449281"}},
             {"Mexico", {"false", "false", "true", "4", "126190788"}},
-            {"Canada", {"true", "true", "true", "7", "38005238"}},
-            {"Brasil", {"false", "true", "true", "6", "213993437"}},
-            {"Argentina", {"false", "false", "true", "8", "45195777"}},
         }},
         {"Europa", {
             {"Alemania", {"true", "true", "true", "3", "83783942"}},
             {"Espana", {"true", "true", "true", "5", "47351567"}},
-            {"Francia", {"true", "true", "true", "19", "65273511"}},
-            {"Italia", {"true", "true", "true", "23", "60243439"}},
-            {"Reino Unido", {"true", "true", "true", "29", "67886011"}},
         }},
         {"Africa", {
-            {"Nigeria", {"false", "false", "true", "20", "206139587"}},
-            {"Egipto", {"false", "true", "true", "21", "104258327"}},
             {"Sudafrica", {"true", "true", "true", "41", "60041989"}},
-            {"Etiopia", {"false", "false", "true", "22", "118118000"}},
             {"Kenia", {"false", "false", "true", "24", "58036725"}},
         }},
         {"Asia", {
             {"China", {"true", "true", "true", "53", "1444216107"}},
             {"India", {"false", "true", "true", "25", "1393409038"}},
-            {"Japon", {"true", "true", "true", "61", "126476461"}},
-            {"Corea del Sur", {"true", "true", "true", "67", "51780579"}},
-            {"Indonesia", {"false", "false", "true", "26", "276361783"}},
         }},
         {"Oceania", {
             {"Australia", {"true", "true", "true", "73", "25687041"}},
             {"Nueva Zelanda", {"true", "true", "true", "79", "5129262"}},
-            {"Fiyi", {"false", "false", "true", "27", "896444"}},
-            {"Papua Nueva Guinea", {"false", "false", "true", "28", "9579746"}},
-            {"Samoa", {"false", "false", "true", "30", "199133"}},
         }}
         };
 
@@ -79,7 +72,7 @@ enum Opciones {
             }
 
         do {
-    
+            //Menu principal
             std::cout << "\nMenu:\n";
             std::cout << "1. Imprimir la informacion de todos los paises\n";
             std::cout << "2. Comparar paises\n";
@@ -90,7 +83,7 @@ enum Opciones {
             std::cin >> opcion;
         
         switch (opcion) {
-
+            //Imprimo contenido del planeta
            case IMPRIMIR:{
             //inicializo el constructor de la clase planeta
             Planeta tierra(continentes, continentes.size(),{});
@@ -105,8 +98,59 @@ enum Opciones {
                 
                 break;
 
+            //Agrego contenido al dicionario
             case AGREGAR:
+                int opcion2;
+                std::cout << "\nSelecione un continente:\n";
+                std::cout << "1. America\n";
+                std::cout << "2. Europa\n";
+                std::cout << "3. Africa\n";
+                std::cout << "4. Asia\n";
+                std::cout << "5. Oceania\n";
+                std::cout << "6. Salir\n";
+                std::cout << "Ingrese una opcion: ";
+                std::cin >> opcion2;
+
+                switch (opcion2)
+                {
+                case CONTINENTE1:{
+                    agregarInformacion("America", instrucionesPlaneta);
+                    }
+                    
+                    break;
+
+                case CONTINENTE2:{
+                    agregarInformacion("Europa", instrucionesPlaneta);
+                    }
+                    
+                    break;
                 
+                case CONTINENTE3:{
+                    agregarInformacion("Africa", instrucionesPlaneta);
+                }
+                    
+                    break;
+
+                case CONTINENTE4:{
+                    agregarInformacion("Asia", instrucionesPlaneta);
+                }
+                    
+                    break;
+
+                case CONTINENTE5:{
+                    agregarInformacion("Oceania", instrucionesPlaneta);
+                }
+                    
+                    break;
+
+                case OUT:
+                    std::cout << "Saliendo...\n";
+                    break;
+                
+                default:
+                    std::cout << "Opción no valida\n";
+                    break;
+                }
                 break;
 
             case ELIMINAR:
