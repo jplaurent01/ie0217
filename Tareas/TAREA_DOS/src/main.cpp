@@ -43,24 +43,24 @@ enum Opciones2 {
         //informacion ordenada en 5G, AEROPUERTO, CENTRO INVESTIGACION, ID Y HABITANTES.
         std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta = {
         {"America", {
-            {"Estados Unidos", {"true", "true", "true", "2", "331449281"}},
-            {"Mexico", {"false", "false", "true", "4", "126190788"}},
+            {"Estados Unidos", {"true", "true", "true", "2", "331"}},
+            {"Mexico", {"false", "false", "true", "4", "126"}},
         }},
         {"Europa", {
-            {"Alemania", {"true", "true", "true", "3", "83783942"}},
-            {"Espana", {"true", "true", "true", "5", "47351567"}},
+            {"Alemania", {"true", "true", "true", "3", "837"}},
+            {"Espana", {"true", "true", "true", "5", "473"}},
         }},
         {"Africa", {
-            {"Sudafrica", {"true", "true", "true", "41", "60041989"}},
-            {"Kenia", {"false", "false", "true", "24", "58036725"}},
+            {"Sudafrica", {"true", "true", "true", "41", "600"}},
+            {"Kenia", {"false", "false", "true", "24", "580"}},
         }},
         {"Asia", {
-            {"China", {"true", "true", "true", "53", "1444216107"}},
-            {"India", {"false", "true", "true", "25", "1393409038"}},
+            {"China", {"true", "true", "true", "53", "144"}},
+            {"India", {"false", "true", "true", "25", "139"}},
         }},
         {"Oceania", {
-            {"Australia", {"true", "true", "true", "73", "25687041"}},
-            {"Nueva Zelanda", {"true", "true", "true", "79", "5129262"}},
+            {"Australia", {"true", "true", "true", "73", "256"}},
+            {"Nueva Zelanda", {"true", "true", "true", "79", "512"}},
         }}
         };
 
@@ -94,8 +94,10 @@ enum Opciones2 {
             break;
                 
 
-            case COMPARAR:
-                
+            case COMPARAR:{
+            //Pide 2 id, compara si los dos son primos, utliza sobrecarga de operadores
+            compararPaises(instrucionesPlaneta);
+            }
                 break;
 
             //Agrego contenido al dicionario
@@ -153,7 +155,9 @@ enum Opciones2 {
                 }
                 break;
 
-            case ELIMINAR:
+            case ELIMINAR:{
+                eliminarId(instrucionesPlaneta);
+                }
 
                 break;
             case SALIR:

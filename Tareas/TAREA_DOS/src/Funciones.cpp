@@ -6,6 +6,120 @@
 // Licencia: MIT
 
 #include "Funciones.hpp"
+void retornarPais(string id, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta,
+ vector<Pais> &paisesContinente){
+        
+        //itero sobre continentes
+        for (const auto& continente : instrucionesPlaneta) {
+        //itero sobre paises
+        for (const auto& pais : continente.second) {
+            //Caso de encontrar id selecionado
+            if (pais.second[3] == id) {
+                paisesContinente.push_back(Pais(pais.first, stoi(pais.second[3]), stoi(pais.second[4])));
+                break; 
+            }
+        }
+    }
+}
+
+void compararPaises(unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta){
+    //Imprimo contenido del diccionario:
+    for (const auto& continente : instrucionesPlaneta) {
+    cout << "\n"<< continente.first << ":\n";
+    for (const auto& pais : continente.second) {
+        cout << "  " << pais.first << ": id: " << pais.second[3] << "\n";
+    }
+    cout << "\n";
+    }
+
+    cout << "Ingrese el ID del 1er pais: ";
+    string idOne;
+    string idTwo;
+    //utiliza como cin el contenido del string idToDelete
+    cin >> idOne;
+    cout << "Ingrese el ID del 2do pais: ";
+    cin >> idTwo;
+    // Verificar que no se digito un string vacio y que esete sea un numero
+    if (!idOne.empty() && std::all_of(idOne.begin(), idOne.end(), ::isdigit)
+    && !idTwo.empty() && std::all_of(idTwo.begin(), idTwo.end(), ::isdigit)) {
+        //verifco que los 2 ID existan
+        if (idIsUnique(idOne,instrucionesPlaneta) == false && idIsUnique(idTwo,instrucionesPlaneta) == false){
+            if (idOne != idTwo){
+            //Vctores de tipo Pais
+            vector<Pais> paisesContinente1;
+            vector<Pais> paisesContinente2;
+
+            //Funciones de tipo void que editan contenido de los vecotres de tipo Pais
+            //inicializo los constructores
+            retornarPais(idOne, instrucionesPlaneta, paisesContinente1);
+            retornarPais(idTwo, instrucionesPlaneta, paisesContinente2);
+            
+            //Metodo publico que hace el llamado al metodo privado de sobre carga operadores ==
+            paisesContinente1[0].realizarComparacion(paisesContinente1[0], paisesContinente2[0]);
+            }else {
+                cout << "ID deben ser distintos" << endl;
+            }
+            
+        }else {
+          cout << "No se encontro uno de los IDs" << endl;  
+        }
+
+    }else {
+        cout << "Se debe ingresar un numero" << endl;
+    }
+}
+
+void eliminarId(unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> &instrucionesPlaneta){
+
+    //Imprimo contenido del diccionario:
+    for (const auto& continente : instrucionesPlaneta) {
+    cout << "\n"<< continente.first << ":\n";
+    for (const auto& pais : continente.second) {
+        cout << "  " << pais.first << ": id: " << pais.second[3] << "\n";
+    }
+    cout << "\n";
+    }
+
+    //Pregunto al usuario por el id a eliminar
+    cout << "Ingrese el ID del pais a eliminar: ";
+    string idToDelete;
+    //utiliza como cin el contenido del string idToDelete
+    cin >> idToDelete;
+
+    // Verificar que no se digito un string vacio y que esete sea un numero
+    if (!idToDelete.empty() && std::all_of(idToDelete.begin(), idToDelete.end(), ::isdigit)) {
+        //Caso donde encuentro el id, ya que es repetido
+        if (idIsUnique(idToDelete,instrucionesPlaneta) == false){
+         //se convierte el string a un entero
+        int id = std::stoi(idToDelete);
+
+        // Buscar y eliminar el pais con el ID dado
+        //itero sobre cada uno de los continentes del dicionario
+        for (auto& continente : instrucionesPlaneta) {
+            //ciclo for que itera sobre los elementos del segundo dicionario anidado, es decir sobre los paises
+            for (auto it = continente.second.begin(); it != continente.second.end(); ) {
+                //si el dicionario cuyo key pais posee un value en la poscion 3 que corresponda el el idToDelete
+                //procedo a eliminar
+                if (it->second[3] == idToDelete) {
+                    //elimino pais
+                    cout <<it->first<<" EXITOSAMENTE eliminado."<<endl;
+                    it = continente.second.erase(it);
+                    
+                } else {
+                    //continuo buscando 
+                    ++it;
+                }
+            }
+        }
+        } else {
+            cout <<"El ID no se encuentra" << endl;
+        }
+        
+    } else {
+        std::cout << "Entrada invalida. Debe ingresar un ID numerico.\n";
+    }
+}
+
 bool idIsUnique(string num, string nombrePais,
  unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta){
     // Verificar si el ID es único
@@ -27,12 +141,35 @@ bool idIsUnique(string num, string nombrePais,
     return idUnico;
 }
 
+bool idIsUnique(string num,
+unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta){
+    // Verificar si el ID es único
+    bool idUnico = true;
+    //recorro el dicionario por continentes
+    for (const auto& continente : instrucionesPlaneta) {
+        //recorro la informacion de los continentes
+        for (const auto& pais : continente.second) {
+            //Caso donde encontre un id repetido o nombre repetido
+            if (pais.second[3] == num) {
+                idUnico = false;
+                break;
+            }
+        }
+        if (!idUnico) {
+            break;
+        }
+    }
+    return idUnico;
+}
+
 //agrego un nuevo pais al diccionario
 void agregarInformacion(string nombreContinente, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> &instrucionesPlaneta){
     //Variables de interaccion con el usuario
     string nombrePais;
     int id;
+    string id0;
     int habitantes;
+    string habitantes0;
     string input5G;
     bool tec5G = true;
     string inputAeropuerto;
@@ -45,9 +182,10 @@ void agregarInformacion(string nombreContinente, unordered_map<std::string, std:
     //Verifico si el nombre no es nulo
     if (!nombrePais.empty()){
         cout << "Ingrese un numero primo (Pais 1er mundo) o  no primo (Pais en desarrollo), debe ser MAYOR a 1" << endl;
-        cin >> id;
+        cin >> id0;
         //Verifico si el id es un numero entero
-        if (!cin.fail()){
+        if (std::all_of(id0.begin(), id0.end(), ::isdigit)){
+            id = stoi(id0);
             //chequeo si el numero es mayor a 1
             if (id > 1){
                 //Chequeo si el id o el nombre son unicos
@@ -56,9 +194,12 @@ void agregarInformacion(string nombreContinente, unordered_map<std::string, std:
                     //caso numero primo, pais primer mundo
                     if (isPrimo(id) == true){
                        cout << "Ingrese un numero con la cantidad de habitantes" << endl;
-                       cin >> habitantes; 
-                       //verifico que el se ingrese un numero de habitantes mayor a 1
-                       if (!cin.fail() && habitantes > 1){
+                       cin >> habitantes0; 
+                       //verifico que el se ingrese un numero 
+                       if (std::all_of(habitantes0.begin(), habitantes0.end(), ::isdigit)){
+                        habitantes = stoi(habitantes0);
+                        if (habitantes > 1){
+                            
                         //Debo preguntar por 5G, aeropuerto y centro de investigacion
                         cout << "El pais posee Tecnologia 5G (true/false)" << endl;
                         cin >> input5G;
@@ -100,9 +241,13 @@ void agregarInformacion(string nombreContinente, unordered_map<std::string, std:
                             cout << "Opcion invalida" << endl;
                         }
 
+                        }else{
+                            cout << "De ingresar una cantidad de habitantes mayor a 1" << endl;
+                        }
+                        
                        }
                        else{
-                        cout << "Ingrese un numero de habitantes y que sea mayor a 1" << endl;
+                        cout << "Ingrese un numero de habitantes " << endl;
                        }
                        
                     }
@@ -220,7 +365,7 @@ bool isPrimo(int num){
 }
 
 void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta) {
-    cout << "Informacion General: \n";
+    cout << "\nInformacion General: \n";
     cout << "Planeta posee " << tierra.number_continets <<" continentes: ";
     for(auto it = tierra.continets.begin(); it != tierra.continets.end(); ++it) {
 
@@ -333,7 +478,7 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
 
     //Evaluo si el vector no esta vacio para imprimir
     if (paisesPrimerMundoContinente1.size() > 0){
-        cout <<"\n Paises desarrollados de " << tierra.selectedContinents[0] << ":" <<endl;
+        cout <<"\nPaises desarrollados de " << tierra.selectedContinents[0] << ":" <<endl;
 
         // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
         for (auto& pais : paisesPrimerMundoContinente1) {
@@ -343,7 +488,7 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
     
     //Evaluo si el vector no esta vacio para imprimir
     if (paisesPrimerMundoContinente2.size()>0){
-        cout <<"\n Paises de primer mundo de " << tierra.selectedContinents[1] << ":" <<endl;
+        cout <<"\nPaises de primer mundo de " << tierra.selectedContinents[1] << ":" <<endl;
 
         // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
         for (auto& pais : paisesPrimerMundoContinente2) {
@@ -353,7 +498,7 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
     
     //Evaluo si el vector no esta vacio para imprimir
     if (paisesPrimerMundoContinente3.size() > 0){
-        cout <<"\n Paises de primer mundo de " << tierra.selectedContinents[2] << ":" <<endl;
+        cout <<"\nPaises de primer mundo de " << tierra.selectedContinents[2] << ":" <<endl;
 
             // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
             for (auto& pais : paisesPrimerMundoContinente3) {
@@ -372,7 +517,7 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
 
     //Evaluo si el vector no esta vacio para imprimir
     if (paisesEnDesarrolloContinente1.size() > 0){
-        cout <<"\n Paises en desarrollo de " << tierra.selectedContinents[0] << ":" <<endl;
+        cout <<"\nPaises en desarrollo de " << tierra.selectedContinents[0] << ":" <<endl;
         // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
         for (auto& pais : paisesEnDesarrolloContinente1) {
             pais.mostrarDetalles();
@@ -381,7 +526,7 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
     
     //Evaluo si el vector no esta vacio para imprimir
     if (paisesEnDesarrolloContinente2.size() > 0){
-        cout <<"\n Paises en desarrollo de " << tierra.selectedContinents[1] << ":" <<endl;
+        cout <<"\nPaises en desarrollo de " << tierra.selectedContinents[1] << ":" <<endl;
         // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
         for (auto& pais : paisesEnDesarrolloContinente2) {
             pais.mostrarDetalles();
@@ -390,7 +535,7 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
     
     //Evaluo si el vector no esta vacio para imprimir
     if (paisesEnDesarrolloContinente3.size() > 0){
-        cout <<"\n Paises en desarrollo de " << tierra.selectedContinents[2] << ":" <<endl;
+        cout <<"\nPaises en desarrollo de " << tierra.selectedContinents[2] << ":" <<endl;
         // Iterar sobre el vector y llamar al método mostrarDetalles() para cada objeto
         for (auto& pais : paisesEnDesarrolloContinente3) {
             pais.mostrarDetalles();

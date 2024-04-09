@@ -16,7 +16,7 @@ g++ -o main.exe .\main.cpp .\Planeta.cpp .\Funciones.cpp .\Continentes.cpp .\Pai
 >Los niveles de ocultamiento se logran mediante los modificadores de acceso conocidos como: **public**, **private** y **protected**.
 
 3. ¿Cuál es la diferencia entre una clase y un objeto en C++?
->En terminos generales una clase es un molde que contiene todas las instruciones necesarias para elaborar un objeto. Por otro lado un objeto es una **instanci** de una clase.
+>En terminos generales una clase es un **molde** que contiene todas las instruciones necesarias para elaborar un objeto. Por otro lado un objeto es una **instancia** de una clase.
 
 4. ¿Qué es el polimorfismo y cómo se logra en C++?
 
