@@ -8,6 +8,7 @@ g++ -o main.exe .\main.cpp .\Planeta.cpp .\Funciones.cpp .\Continentes.cpp .\Pai
 
 Link del código fuente:
 ```
+https://tarea2jplaurent.netlify.app/
 ```
 1. ¿Qué es la programación orientada a objetos y cuáles son sus principales principios?
 >La programación orientada a objetos es un paradigma de la programación que busca crear clases, con el objetivo de crear objetos de estas. Dichas clases sirven como molde para la estructuración de los objetos ya que permiten estructurar los datos y coportamientos de los objetos.
