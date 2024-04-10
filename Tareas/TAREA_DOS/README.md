@@ -5,6 +5,10 @@ Debe ejecutar el código con el siguiente comando dentro de la carpeta **src**:
 ```
 g++ -o main.exe .\main.cpp .\Planeta.cpp .\Funciones.cpp .\Continentes.cpp .\Pais.cpp .\PaisPrimerMundo.cpp .\PaisEnDesarrollo.cpp
 ```
+
+Link del código fuente:
+```
+```
 1. ¿Qué es la programación orientada a objetos y cuáles son sus principales principios?
 >La programación orientada a objetos es un paradigma de la programación que busca crear clases, con el objetivo de crear objetos de estas. Dichas clases sirven como molde para la estructuración de los objetos ya que permiten estructurar los datos y coportamientos de los objetos.
 
@@ -85,8 +89,25 @@ C+?
 >En terminos generales, la herencia permite reutilizar código ya que permite definir nuevas clases a partir de clases pre existentes.
 
 16. ¿Qué es la composición y cómo se implementa en C++?
+
+>La composición se da cuando se quiere crear objetos complejos a partir de objetos más simples. En C++ es posible implementar dicho concepto mediante la implementacíon de clases anidadas, es decir la inclusión de un objeto de una clase dentro de otro clase. 
+
 17. ¿Qué es la sobreescritura de funciones en C++ y cuando es bueno usarla?
+
+>Son dos o más funciones con el mismo nombre, pero difieren en el tipo y cantidad de argumentos. Es buena idea utilizar dicho concepto cuando se quiere reutilizar código, ahorrar memoria e incremenetar la legibilidad del código.
+
+
 18. ¿Qué es un método y un atributo y cuál es la diferencia entre ellos?
+
+>**Atributo** son las variables dentro de una clase y un **método** es basicamente, las acciones que realiza dicha clase, es posible que el método implemente atributos de la clase.
+
 19. ¿Qué es el constructor y el destructor en una clase?
+
+>Constructor es el elemento que contiene todas las instruciones necesarias para la creación de un objeto. Su propósito es brindar todos los recursos para inicializar una clase, mediante un objeto. Estos pueden recibir argumentos.
+
+>Destructor es el encargado de destuir un objeto, a diferencia del constructor, este no recibe como parametro ningun tipo de elemento.
+
 20. ¿Qué es la sobrecarga de operadores en C++ y cómo se utiliza?
+
+>Es una herramienta de POO qué permite establecer el comportamiento de los operadores al trabajar como objetos. La sobre escritura se puede implementar cunado se tiene la necesidad ya sea de sumar, restar, multiplicar, dividir y comparar cobjetos, por tal motivo se define dentro de la clase la manaera de interactura de distintos operadores con los objetos.
 
