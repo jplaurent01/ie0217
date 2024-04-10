@@ -1,9 +1,12 @@
-// Nombre del archivo: main.cpp
-//
-// Descripción: 
-//
-// Copyright (c) 2024 Jose Pablo Laurent Chaves
-// Licencia: MIT
+/**
+ * @file Main.cpp
+ * @brief Se realiza el llamado a las funciones y menus del programa
+ *
+ * @author Jose Pablo Laurent Chaves
+ * @date 2024
+ * @version 1.0
+ * @license MIT
+ */
 
 #include <iostream>
 #include <algorithm>

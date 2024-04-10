@@ -10,7 +10,14 @@
 #include <vector> 
 using namespace std;
 
-//constructor de la clase 
+//constructor de la clase
+/**
+ * @brief Constructor de la clase.
+ * 
+ * @param _continets Vector que contiene los nombres de los continentes.
+ * @param _number_continets Cantidad de continentes en el planeta.
+ * @param _selectedContinents Vector que contiene los continentes seleccionados.
+ */
 Planeta::Planeta(vector<string> _continets, int _number_continets, vector<string> _selectedContinents) :
     continets(_continets), number_continets(_number_continets), selectedContinents(_selectedContinents){}
 

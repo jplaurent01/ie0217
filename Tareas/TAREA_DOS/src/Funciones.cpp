@@ -1,11 +1,22 @@
-// Nombre del archivo: Funciones.cpp
-//
-// Descripción: 
-//
-// Copyright (c) 2024 Jose Pablo Laurent Chaves
-// Licencia: MIT
+/**
+ * @file Funciones.cpp
+ * @brief Archivo que contiene el cuerpo de las funciones.
+ *
+ * @author Jose Pablo Laurent Chaves
+ * @date 2024
+ * @version 1.0
+ * @license MIT
+ */
 
 #include "Funciones.hpp"
+
+ /**
+ * @brief Funcion edita el contenido del vector paisesContinente para insertar su respectivo constructor con la informacion del diccionario
+ * 
+ * @param id Id del pais.
+ * @param instrucionesPlaneta Diccionario con instrucciones para crear países.
+ * @param paisesContinente Vector que alberga el constructor con el que posterior mente se  comparan 2 paises.
+ */
 void retornarPais(string id, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta,
  vector<Pais> &paisesContinente){
         
@@ -15,6 +26,7 @@ void retornarPais(string id, unordered_map<std::string, std::unordered_map<std::
         for (const auto& pais : continente.second) {
             //Caso de encontrar id selecionado
             if (pais.second[3] == id) {
+                //Agrego contenido al vector, es decir lo edito
                 paisesContinente.push_back(Pais(pais.first, stoi(pais.second[3]), stoi(pais.second[4])));
                 break; 
             }
@@ -22,16 +34,24 @@ void retornarPais(string id, unordered_map<std::string, std::unordered_map<std::
     }
 }
 
+ /**
+ * @brief Funcion para comparar paises.
+ * 
+ * @param instrucionesPlaneta Diccionario con instrucciones para crear países.
+ */
 void compararPaises(unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta){
     //Imprimo contenido del diccionario:
     for (const auto& continente : instrucionesPlaneta) {
+    //Imprimo continentes
     cout << "\n"<< continente.first << ":\n";
     for (const auto& pais : continente.second) {
+        //Imprimo paises e informacion del indice
         cout << "  " << pais.first << ": id: " << pais.second[3] << "\n";
     }
     cout << "\n";
     }
 
+    //Pregunto al usuario por IDs, estos no deben ser repetidos y deben existir
     cout << "Ingrese el ID del 1er pais: ";
     string idOne;
     string idTwo;
@@ -50,7 +70,8 @@ void compararPaises(unordered_map<std::string, std::unordered_map<std::string, s
             vector<Pais> paisesContinente2;
 
             //Funciones de tipo void que editan contenido de los vecotres de tipo Pais
-            //inicializo los constructores
+            //inicializo los constructores dentro del vector
+            //estos vectores solo poseen un unico elemento
             retornarPais(idOne, instrucionesPlaneta, paisesContinente1);
             retornarPais(idTwo, instrucionesPlaneta, paisesContinente2);
             
@@ -69,24 +90,32 @@ void compararPaises(unordered_map<std::string, std::unordered_map<std::string, s
     }
 }
 
+ /**
+ * @brief Elimina un país del diccionario.
+ * 
+ * @param instrucionesPlaneta Diccionario con instrucciones para crear países.
+ */
 void eliminarId(unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> &instrucionesPlaneta){
 
     //Imprimo contenido del diccionario:
     for (const auto& continente : instrucionesPlaneta) {
+    //Muestro continente
     cout << "\n"<< continente.first << ":\n";
     for (const auto& pais : continente.second) {
+        //Muestro pais e indice
         cout << "  " << pais.first << ": id: " << pais.second[3] << "\n";
     }
     cout << "\n";
     }
 
-    //Pregunto al usuario por el id a eliminar
+    //Pregunto al usuario por el id a eliminar, este debe existir
     cout << "Ingrese el ID del pais a eliminar: ";
     string idToDelete;
     //utiliza como cin el contenido del string idToDelete
     cin >> idToDelete;
 
-    // Verificar que no se digito un string vacio y que esete sea un numero
+    // Verificar que no se digito un string vacio y que esete sea un numero, recorro todo el contenido del
+    //string buscando que sea numerico
     if (!idToDelete.empty() && std::all_of(idToDelete.begin(), idToDelete.end(), ::isdigit)) {
         //Caso donde encuentro el id, ya que es repetido
         if (idIsUnique(idToDelete,instrucionesPlaneta) == false){
@@ -120,15 +149,24 @@ void eliminarId(unordered_map<std::string, std::unordered_map<std::string, std::
     }
 }
 
+ /**
+ * @brief Determina si el ID de un país está repetido.
+ * 
+ * @param num ID del país a verificar.
+ * @param nombrePais Nombre del país.
+ * @param instrucionesPlaneta Diccionario con instrucciones para crear países.
+ * @return true Si el ID está repetido.
+ * @return false Si el ID no está repetido.
+ */
 bool idIsUnique(string num, string nombrePais,
  unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta){
     // Verificar si el ID es único
     bool idUnico = true;
     //recorro el dicionario por continentes
     for (const auto& continente : instrucionesPlaneta) {
-        //recorro la informacion de los continentes
+        //recorro la informacion de los paises
         for (const auto& pais : continente.second) {
-            //Caso donde encontre un id repetido o nombre repetido
+            //Caso donde encontre un id repetido y nombre repetido
             if (pais.second[3] == num && pais.first != nombrePais) {
                 idUnico = false;
                 break;
@@ -141,13 +179,21 @@ bool idIsUnique(string num, string nombrePais,
     return idUnico;
 }
 
+ /**
+ * @brief Funcion determina se el id está repetido, Sobrecargo esta funcion.
+ * 
+ * @param num ID del país a verificar.
+ * @param instrucionesPlaneta Diccionario con instrucciones para crear países.
+ * @return true Si el ID está repetido.
+ * @return false Si el ID no está repetido.
+ */
 bool idIsUnique(string num,
 unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta){
     // Verificar si el ID es único
     bool idUnico = true;
     //recorro el dicionario por continentes
     for (const auto& continente : instrucionesPlaneta) {
-        //recorro la informacion de los continentes
+        //recorro la informacion de los paises
         for (const auto& pais : continente.second) {
             //Caso donde encontre un id repetido o nombre repetido
             if (pais.second[3] == num) {
@@ -163,6 +209,12 @@ unordered_map<std::string, std::unordered_map<std::string, std::vector<std::stri
 }
 
 //agrego un nuevo pais al diccionario
+/**
+ * @brief Agrega un nuevo país por continente al vector.
+ * 
+ * @param nombreContinente Nombre del continente.
+ * @param instrucionesPlaneta Diccionario con instrucciones para crear países.
+ */
 void agregarInformacion(string nombreContinente, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> &instrucionesPlaneta){
     //Variables de interaccion con el usuario
     string nombrePais;
@@ -298,10 +350,25 @@ void agregarInformacion(string nombreContinente, unordered_map<std::string, std:
     
 }
 //convierto de booleano a string
+ /**
+ * @brief Convierte un booleano a string.
+ * 
+ * @param valor Valor bool a convertir.
+ * @return std::string "true" si el valor es true, "false" si es false.
+ */
 string boolToString(bool valor) {
+    //Dependiendo del contenido booleano de la variable valor, retorno un string de true o false
     return valor ? "true" : "false";
 }
+
 //Convierto de string a booleano
+/**
+ * @brief Convierte un string a bool.
+ * 
+ * @param str String a convertir.
+ * @return true Si el string es "true".
+ * @return false caso contrario.
+ */
 bool stringToBool(const string& str) {
     string lowerStr;
     // Convertir la cadena a minúsculas
@@ -316,6 +383,17 @@ bool stringToBool(const string& str) {
 }
 
 //Funcion que me filtra la informacion de acuerdo al continente:
+/**
+ * @brief Filtra la información de los países por continente.
+ * 
+ * @param keyWord Palabra clave de dicionario para filtrar.
+ * @param cantidadPaises0 Cantidad de países filtrados.
+ * @param primos0 Cantidad de países con id primo.
+ * @param noPrimos0 Cantidad de países con id no primo.
+ * @param instrucionesPlaneta Diccionario con instrucciones para crear países.
+ * @param paisesPrimerMundoContinente Vector de países de primer mundo del continente.
+ * @param paisesEnDesarrolloContinente Vector de países en desarrollo del continente.
+ */
 void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &noPrimos0, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta,  vector<PaisPrimerMundo> &paisesPrimerMundoContinente, vector<PaisEnDesarrollo> &paisesEnDesarrolloContinente){
 
     if (keyWord == "Oceania" || keyWord == "Asia" || keyWord == "Africa" || keyWord == "Europa" || keyWord == "America"){
@@ -326,6 +404,7 @@ void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &
             for (const auto& par : instrucionesPlaneta[keyWord]) {
                 //accedo al identificador unico par.second[indice], accedo a los valores del dicionario anidado
                 //con esto puedo recolectar los valores del pais para generar objetos de tipo pais
+                //convierto del indice en integer
                 int id = std::stoi(par.second[3]);
 
                 //Caso de encontrar pais desarrollado
@@ -333,10 +412,12 @@ void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &
                     //agrego contructor de paises de primer mundo
                     //Nombre, id, habitantes, 5g, aeropuerto, investigacion
                     paisesPrimerMundoContinente.push_back(PaisPrimerMundo(par.first, stoi(par.second[3]), stoi(par.second[4]), stringToBool(par.second[0]), stringToBool(par.second[1]), stringToBool(par.second[2])));
+                    //cuento numeros primos
                     primos0++;
                 } else {
                     //Nombre, id, habitantes, aeropuerto
                     paisesEnDesarrolloContinente.push_back(PaisEnDesarrollo(par.first, stoi(par.second[3]), stoi(par.second[4]), stringToBool(par.second[1])));
+                    //cuento numeors no primos
                     noPrimos0++;
                 }
             }
@@ -351,8 +432,17 @@ void filterByContinent(string keyWord, int &cantidadPaises0, int &primos0, int &
     }
 }
 
+
 //Funcion determina si el numero es o no es primo
+/**
+ * @brief Determina si un número es primo.
+ * 
+ * @param num Número a verificar.
+ * @return true Si el número es primo.
+ * @return false Si el número no es primo.
+ */
 bool isPrimo(int num){
+    //caso menor a igual 1
     if (num <= 1) {
         return false;
     }
@@ -364,6 +454,12 @@ bool isPrimo(int num){
     return true;
 }
 
+/**
+ * @brief Imprime la información de un planeta y sus países.
+ * 
+ * @param tierra Objeto de tipo Planeta a imprimir.
+ * @param instrucionesPlaneta Diccionario con instrucciones para crear países.
+ */
 void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> instrucionesPlaneta) {
     cout << "\nInformacion General: \n";
     cout << "Planeta posee " << tierra.number_continets <<" continentes: ";
@@ -393,6 +489,7 @@ void imprimirPlaneta(Planeta tierra, unordered_map<std::string, std::unordered_m
     // Usar un generador de números aleatorios
     random_device rd;
     mt19937 gen(rd());
+    //tmano entre 0 y tamano vector
     uniform_int_distribution<> distrib(0, tierra.continets.size() - 1);
 
     // del vector tierra.continets, genero un subvector de longitud 3 con 3 continentes aleatorios por donde 
