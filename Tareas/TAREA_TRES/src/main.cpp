@@ -1,10 +1,10 @@
 #include <string>
 #include <iostream>
 #include <unordered_map> // Diccionario posee la estructura key-value
-#include "List.hpp"
-#include "Funciones.hpp"
 #include <vector>
-
+#include "List.hpp"
+#include "Contacto.hpp"
+#include "Funciones.hpp"
 
 using namespace std;
 
@@ -19,10 +19,13 @@ enum Opciones {
 
 int main() {
         int opcion;
-        // Hash-Table 
-        unordered_map<string*, unordered_map<string*, Node*>> hashTable;
+        // Hash-Table,guarda direciion memoria objeto contacto y dir del nodo
+        unordered_map<Contacto*, Node*> hashTable;
+        //unordered_map<string*, unordered_map<string*, Node*>> hashTable;
         //Vector con las direcciones de memoria de de los nodos
         vector<Node*> nodeDir;
+        //Vector con las direcciones de memoria de los objetos tipo contacto
+        vector<Contacto*> contactoDir;
 
         
         do {
@@ -45,12 +48,12 @@ int main() {
                 Node* nodo1;
                 //nodeDir.push_back(nodo1);
                 //Envio como parametros la dicreccion de memoria del nodo y el dicionario
-                agregarContactos(nodo1, hashTable, nodeDir);
+                agregarContactos(nodo1, hashTable, nodeDir, contactoDir);
             }
             break;
                 
             case ELIMINAR:{
-                eliminarContacto(hashTable);
+                eliminarContacto(hashTable, contactoDir);
             }
                 break;
 
@@ -90,13 +93,14 @@ int main() {
             for (auto& pair : hashTable) {
                 //Libero memoria del puntero tipo string name
                 free(pair.first);
-                for (auto& innerPair : pair.second) {
+                delete pair.second;
+                //for (auto& innerPair : pair.second) {
                     //Libero memoria del puntero tipo string number
-                    free(innerPair.first);
+                  //  free(innerPair.first);
                     //Libero memoria del puntero de clase nodo
                     //free(innerPair.second);
-                    delete innerPair.second;
-                }
+                   // delete innerPair.second;
+                //}
             }
         return 0;
     }
