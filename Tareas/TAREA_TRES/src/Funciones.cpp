@@ -105,7 +105,7 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
     if (!name.empty()){
         //Caso de existir el contacto, debo verificar si el cantacto existe en el celular o en el cloud
         if (contactoExistHashTable(name, hashTable) || contactoExistMemoInterna(name, contactoDir)){
-            cout << "Se a encontrado informacion del contacto en la memoria interna o el el  almacenamiento-cloud." << endl;
+            cout << "Se ha encontrado informacion del contacto en la memoria interna || en el  almacenamiento-cloud." << endl;
             //Menu principal
             int opcion;
             cout << "\nEliminar Memoria:\n";
@@ -281,41 +281,67 @@ void mostrar(vector<Contacto*> contactoDir){
     cout << "Contactos almacenados en la memoria interna" << endl;
     //Vector con las direcciones de memoria de los objetos tipo contacto
     //convertir name a minuscula y quitar espacios en blanco
-    bubbleSort(contactoDir);
-    for (const auto& contacto : contactoDir) {
-        cout << "Nombre: " << contacto->nombre << " Telefono: " << contacto->telefono << endl;
+    if (contactoDir.size() > 0 ){
+        bubbleSort(contactoDir);
+        for (const auto& contacto : contactoDir) {
+            cout << "Nombre: " << contacto->nombre << " - Telefono: " << contacto->telefono << endl;
+        }
     }
+    else{
+        cout << "No hay datos almacenados internamente" << endl;
+    }
+    
+
 
 };
 
 
 void sortLinkeList(const Node* nodoAEliminar, vector<tuple<Node*, int>> &nodeDir){
+    int count = 0;
+    if (nodeDir.size() <= 1){
 
-     // Buscar el nodo a eliminar en el vector de tuplas
-    auto it = find_if(nodeDir.begin(), nodeDir.end(), [nodoAEliminar](const tuple<Node*, int>& t) {
-        return get<0>(t) == nodoAEliminar;
-    });
+        //Elimo primer elemento del vector
+        nodeDir.erase(nodeDir.begin() + 0);
+        cout << "Elimnio unico Nodo de la lista" << endl;
+        //me salgo de la funcion
+        return;
 
-    // Caso de haber encontrado el nodo a eliminar
-    if (it != nodeDir.end()) {
-        // Obtener la posición del nodo a eliminar en la lista enlazada
-        int posicion = get<1>(*it);
-
-        // Actualizar el puntero last del nodo siguiente al nodo a eliminar
-        if (posicion < nodeDir.size() - 1) {
-            Node* nodoSiguiente = get<0>(nodeDir[posicion + 1]);
-            if (nodoSiguiente != nullptr) {
-                nodoSiguiente->last = (posicion > 0) ? get<0>(nodeDir[posicion - 1]) : nullptr;
+    }else {
+            for (int i = 0; i < nodeDir.size(); i++){
+                if (nodoAEliminar == get<0>(nodeDir[i])){
+                    break;
+                }
+                count += 1;   
             }
         }
 
-        // Eliminar el elemento del vector de tuplas
-        nodeDir.erase(it);
+    //Caso donde elimino el primer elemento de la lista, lista posee al menos 2 nodos
+    if (count == 0){
+        cout << "Elimino primer nodo de la lista" << endl;
+        //Node *nodoPosterior = get<0>(nodeDir[count + 1]);
+        //nodoPosterior->last = nullptr;
+        get<0>(nodeDir[count + 1])->last = nullptr;
+        nodeDir.erase(nodeDir.begin() + 0);
 
-        // Actualizar las posiciones de los nodos en el vector de tuplas
-        for (int i = posicion + 1; i < nodeDir.size(); i++) {
-            get<1>(nodeDir[i])--;  // Decrementar la posición de los nodos siguientes
-        }
     }
- 
+    //Caso donde el nodo se encuentra en el medio de la lista
+    else if (count > 0 && count <  nodeDir.size()-1){
+        //Agarro el nodo nodo siguiente al que voy a eliminar
+        //Node *nodoPosterior = get<0>(nodeDir[count + 1]);
+        //Nodo apuntara a la direccion de memoria del nodo anterior al que voy a eliminar
+        cout << "Elimino nodo intermedio de la lista" << endl;
+        get<0>(nodeDir[count + 1])->last = get<0>(nodeDir[count-1]);
+        nodeDir.erase(nodeDir.begin() + count);
+        //Nodo anterior de conserva igual, solo se modifica el nodo posterior
+    }
+    //Caso donde elimino ultimo nodo de la lista
+    else if (count == nodeDir.size()-1){
+        //En este caso no es necesario que el ultimo elemento de la lista se vaya a ajustar
+        cout << "Elimino ultimo nodo de la lista" << endl;
+        nodeDir.erase(nodeDir.begin() + count);
+    }
+    else {
+         cout << "Ocurrio una particularidad" << endl;
+    }
+    
 };
