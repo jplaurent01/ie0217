@@ -32,14 +32,13 @@ void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable,
                 number.erase(remove_if(number.begin(), number.end(), ::isspace), number.end());
                 //Reservo espacio de memoria de un puntero de tipo contacto
                 Contacto* ptrContacto = (Contacto*) malloc(sizeof(Contacto));
- 
+                cout << "Asigno memoria con malloc..."<< endl;
                 //Asigno al puntero tipo contacto el contenido de las variables name y number
-                 ptrContacto->nombre = name;
-                 ptrContacto->telefono= number;
-
+                 ptrContacto->nombre.assign(name);
+                 ptrContacto->telefono.assign(number);
                  //Guardo en la memoria del celular el la direcion de memoria del nuevo contacto
                 contactoDir.push_back(ptrContacto);
-
+                cout << "Edito puntero de contactos..."<< endl;
                 //Cuando la tabla hash esta vacia
                 if (nodeDir.size() <= 0){
 
@@ -108,14 +107,17 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
             cout << "Se ha encontrado informacion del contacto en la memoria interna || en el  almacenamiento-cloud." << endl;
             //Menu principal
             int opcion;
+            string opcion2;
             cout << "\nEliminar Memoria:\n";
             cout << "1. Eliminar memoria del celular\n";
             cout << "2. Eliminar en la memoria del almacenamiento-cloud.\n";
             cout << "3. Salir del programa\n";
             cout << "Ingrese una opcion: ";
-            cin >> opcion;
-        
-            switch (opcion) {
+            cin >> opcion2;
+
+            if(all_of(opcion2.begin(), opcion2.end(), ::isdigit) && (opcion2 == "1" || opcion2 == "2" || opcion2 == "3")){
+                opcion = stoi(opcion2);
+                switch (opcion) {
             
             //Caso donde elimino memoria del celular
             //Debo eliminar bloque memoria Contacto con free
@@ -182,9 +184,12 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
 
             //Caso por defecto   
             default:
-                cout << "Opción no valida\n";
+                cout << "Opcion no valida\n";
                 break;
             }
+        }else {
+            cout << "Se ingreso una opcion no valida" << endl;
+        }
 
         }else{
              cout <<"Contacto NO encontrado" << endl;
@@ -252,28 +257,28 @@ void imprimir(unordered_map<Contacto*, Node*> hashTable){
 
 void bubbleSort(vector<Contacto*> &arr) {
     int n = arr.size();
-    bool swapped;
+    bool intercambio;
     do {
-        swapped = false;
+        intercambio = false;
         for (int i = 1; i < n; i++) {
-            // Eliminar espacios en blanco de los nombres antes de comparar
-            std::string nombre1 = arr[i - 1]->nombre;
+            //Elimino espacios en blanco de los nombres antes de comparar
+            string nombre1 = arr[i - 1]->nombre;
             nombre1.erase(remove_if(nombre1.begin(), nombre1.end(), ::isspace), nombre1.end());
 
-            std::string nombre2 = arr[i]->nombre;
+            string nombre2 = arr[i]->nombre;
             nombre2.erase(remove_if(nombre2.begin(), nombre2.end(), ::isspace), nombre2.end());
 
-            // Comparar los nombres y intercambiar si están en el orden incorrecto
+            //Comparo los nombres y intercambiar si están en el orden incorrecto
             if (nombre1 > nombre2) {
-                // Intercambiar los elementos
+                //Intercambio los elementos
                 Contacto* temp = arr[i - 1];
                 arr[i - 1] = arr[i];
                 arr[i] = temp;
-                swapped = true;
+                intercambio = true;
             }
         }
         n--;
-    } while (swapped);
+    } while (intercambio);
 }
 
 

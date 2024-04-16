@@ -31,6 +31,7 @@ int main() {
 
         
         do {
+            string opcion2;
             //Menu principal
             cout << "\nMenu:\n";
             cout << "1. Agregar un contacto\n";
@@ -39,9 +40,11 @@ int main() {
             cout << "4. Mostrar todos los contactos\n";
             cout << "5. Salir del programa\n";
             cout << "Ingrese una opcion: ";
-            cin >> opcion;
-        
-        switch (opcion) {
+            cin >> opcion2;
+        //Verifico que se ingrese una opcion valida
+        if(all_of(opcion2.begin(), opcion2.end(), ::isdigit) && (opcion2 == "1" || opcion2 == "2" || opcion2 == "3" || opcion2 == "4" || opcion2 == "5")){
+            opcion = stoi(opcion2);
+            switch (opcion) {
             
            case AGREGAR:{
                 //Siempre que entro aqui creo un nuevo nodo
@@ -73,10 +76,13 @@ int main() {
                 cout << "Saliendo...\n";
                 break;
             default:
-                cout << "Opción no valida\n";
+                cout << "Opcion no valida\n";
                 break;
             }
-
+        }else{
+            cout << "Se ingreso una opcion no valida" << endl;
+        }
+        
         } while(opcion != SALIR);
 
 
