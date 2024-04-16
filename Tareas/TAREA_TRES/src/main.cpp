@@ -5,6 +5,7 @@
 #include "List.hpp"
 #include "Contacto.hpp"
 #include "Funciones.hpp"
+#include <tuple>
 
 using namespace std;
 
@@ -19,41 +20,41 @@ enum Opciones {
 
 int main() {
         int opcion;
-        // Hash-Table,guarda direciion memoria objeto contacto y dir del nodo
+        //hashTable,guarda direciion memoria objeto contacto y dir del nodo
         unordered_map<Contacto*, Node*> hashTable;
-        //unordered_map<string*, unordered_map<string*, Node*>> hashTable;
-        //Vector con las direcciones de memoria de de los nodos
-        vector<Node*> nodeDir;
-        //Vector con las direcciones de memoria de los objetos tipo contacto
+        //Vector de tuplas, tiene la direcion en memoria del nodo y su unicacion
+        vector<tuple<Node*, int>> nodeDir;
+        //Contador de las posiciones de las memorias
+        int count = 0;
+        //Vector con las direcciones de memoria de los objetos tipo contacto (memoria interna)
         vector<Contacto*> contactoDir;
 
         
         do {
             //Menu principal
-            std::cout << "\nMenu:\n";
-            std::cout << "1. Agregar un contacto\n";
-            std::cout << "2. Eliminar un contacto\n";
-            std::cout << "3. Imprimir Hash-Table y Listas Enlazadas:\n";
-            std::cout << "4. Mostrar todos los contactos\n";
-            std::cout << "5. Salir del programa\n";
-            std::cout << "Ingrese una opcion: ";
-            std::cin >> opcion;
+            cout << "\nMenu:\n";
+            cout << "1. Agregar un contacto\n";
+            cout << "2. Eliminar un contacto\n";
+            cout << "3. Imprimir Hash-Table y Listas Enlazadas:\n";
+            cout << "4. Mostrar todos los contactos\n";
+            cout << "5. Salir del programa\n";
+            cout << "Ingrese una opcion: ";
+            cin >> opcion;
         
         switch (opcion) {
             
            case AGREGAR:{
                 //Siempre que entro aqui creo un nuevo nodo
-                //Node* nodo1;
                 //Creo objeto de tipo nodo puntero
                 Node* nodo1;
                 //nodeDir.push_back(nodo1);
                 //Envio como parametros la dicreccion de memoria del nodo y el dicionario
-                agregarContactos(nodo1, hashTable, nodeDir, contactoDir);
+                agregarContactos(nodo1, hashTable, nodeDir, contactoDir, count);
             }
             break;
                 
             case ELIMINAR:{
-                eliminarContacto(hashTable, contactoDir);
+                eliminarContacto(hashTable, contactoDir, nodeDir);
             }
                 break;
 
@@ -64,7 +65,7 @@ int main() {
                 break;
 
             case MOSTRAR:{
-
+                mostrar(contactoDir);
                 }
 
                 break;
@@ -78,29 +79,25 @@ int main() {
 
         } while(opcion != SALIR);
 
-        // Liberar memoria utilizada por los contactos
-        //for (auto& pair : hashTable) {
-            // Liberar memoria del nombre y el número
-          //  free(pair.first);
-           // for (auto& innerPair : pair.second) {
-             //   free(innerPair.first);
-                // Liberar memoria del nodo
-               // free(innerPair.second);
-           // }
-        //}
 
-            // Liberar memoria utilizada por los contactos
-            for (auto& pair : hashTable) {
-                //Libero memoria del puntero tipo string name
-                free(pair.first);
-                delete pair.second;
-                //for (auto& innerPair : pair.second) {
-                    //Libero memoria del puntero tipo string number
-                  //  free(innerPair.first);
-                    //Libero memoria del puntero de clase nodo
-                    //free(innerPair.second);
-                   // delete innerPair.second;
-                //}
+            if (hashTable.size() > 0){
+                //Libero memoria restante asignada para el amacenamiento cloud
+                //elimino la memoria asignada a los nodos
+                for (auto& pair : hashTable) {
+                    //Libero memoria del puntero tipo string name
+                    //free(pair.first);
+                    delete pair.second;
+                }
             }
+            
+            if (contactoDir.size() > 0){
+                //Libero memoria restante asignada a los objetos contactos (memoria intern)
+                for (auto& element : contactoDir) {
+                    //Libero memoria del puntero tipo string name
+                    free(element);
+                }
+            }
+            
+            
         return 0;
     }

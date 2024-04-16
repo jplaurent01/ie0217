@@ -1,7 +1,7 @@
 #include "Funciones.hpp"
 
-void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable, vector<Node*> &nodeDir,
- vector<Contacto*> &contactoDir){
+void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable,
+ vector<tuple<Node*, int>> &nodeDir, vector<Contacto*> &contactoDir, int &count){
 
     //Variables para el cin
     string name;
@@ -24,10 +24,10 @@ void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable, v
         
         //VERIFICAR ESTO DEBO HACER CASO TABLA HASH Y VECTOR DE CONTACTOS
         if (!contactoExistHashTable(name, hashTable) && !contactoExistMemoInterna(name, contactoDir)){
-            
+            cout << "Contacto nuevo..."<< endl;
             //Recorro todo el string de number para ver si esta compuesto de numeros enteros
             if (all_of(number.begin(), number.end(), ::isdigit)){
-                
+                cout << "telefono correcto..."<< endl;
                 //elimino todos los espacios en blanco del numero
                 number.erase(remove_if(number.begin(), number.end(), ::isspace), number.end());
                 //Reservo espacio de memoria de un puntero de tipo contacto
@@ -49,7 +49,8 @@ void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable, v
                     nodo1->number = ptrContacto->telefono;
                     //el primer elemento punta a nullptr para indicar que ya termine la lista
                     nodo1->last = nullptr;
-                    nodeDir.push_back(nodo1);
+                    //nodeDir.push_back(nodo1);
+                    nodeDir.push_back(make_tuple(nodo1,count));
 
                 }//En este caso ya tengo al menos un elemento guardado en la lista enlazada
                 else{
@@ -59,17 +60,19 @@ void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable, v
                     nodo1->name = ptrContacto->nombre;
                     nodo1->number = ptrContacto->telefono;
                     //Nodos distintos al primer elemento, apuntan al nodo anterior de la lista
-                    nodo1->last = nodeDir.back();
-                    nodeDir.push_back(nodo1);
-
+                     nodo1->last = get<0>(nodeDir.back());
+                    //nodo1->last = nodeDir.back();
+                    //nodeDir.push_back(nodo1);
+                    nodeDir.push_back(make_tuple(nodo1,count));
                 }
                 
 
                 //Para la direccion de memoria del onjeto contacto le asigno un value de la direccion de 
                 //memoria del nodo
                 hashTable[ptrContacto] = nodo1;
-
-                cout << "Contacto guardado staisfactoriamente en   memoria del celular y en almacenamiento cloud" << endl;
+                //Incremento en una la posicion de la memooria del nodo
+                count += 1;
+                cout << "Contacto guardado satisfactoriamente en memoria del celular y en almacenamiento cloud" << endl;
 
             }else{
                 cout << "Debe ingresar un numero entero sin espacios"<< endl;
@@ -88,7 +91,7 @@ void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable, v
     
 };
 
-void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contacto*> &contactoDir){
+void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contacto*> &contactoDir, vector<tuple<Node*, int>> &nodeDir){
     //Variables para el cin
     string name;
 
@@ -101,14 +104,13 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
 
     if (!name.empty()){
         //Caso de existir el contacto, debo verificar si el cantacto existe en el celular o en el cloud
-        //Debo hacer un caso donde pregunte donde pregunte por contacto == nullptr y nodo != nullptr
-        //en ese ultimo comparo el nombre con el guardado en el nodo
         if (contactoExistHashTable(name, hashTable) || contactoExistMemoInterna(name, contactoDir)){
+            cout << "Se a encontrado informacion del contacto en la memoria interna o el el  almacenamiento-cloud." << endl;
             //Menu principal
             int opcion;
             cout << "\nEliminar Memoria:\n";
             cout << "1. Eliminar memoria del celular\n";
-            cout << "2. Eliminar en la memoria del almacenamiento - cloud.\n";
+            cout << "2. Eliminar en la memoria del almacenamiento-cloud.\n";
             cout << "3. Salir del programa\n";
             cout << "Ingrese una opcion: ";
             cin >> opcion;
@@ -123,9 +125,8 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
                 for (auto it = contactoDir.begin(); it != contactoDir.end(); ++it) {
                     if ((*it)->nombre == name) {
                         flagMemoInterna = true;
-                        // Liberar memoria del objeto contacto
+                        //Liberar memoria del objeto contacto
                         free(*it);  
-                        //*it = nullptr;
                         // Eliminar el elemento del vector
                         contactoDir.erase(it);
                         break;
@@ -142,6 +143,7 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
             
             }
                 break;
+
             //Caso donde elimino memoria del almacenamiento - cloud    
             case ELIMINAR2:{
 
@@ -150,10 +152,15 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
                     //Memoria del objeto tipo contacto
                     if (it->first->nombre == name) {
                         flagCloud = true;
-                        free(it->first);  // Liberar memoria
-                        //it->first = nullptr;
-                        delete it->second;  // Liberar memoria
-                        hashTable.erase(it);  // Eliminar el elemento del unordered_map
+                        //Liberar memoria del objeto contacto
+                        //free(it->first);
+                        //debo ordenar la lista enlazada
+                        sortLinkeList(it->second, nodeDir);
+                        //Liberar memoria del objeto nodo
+                        delete it->second;
+                        //Eliminar el elemento del hashtable
+                        hashTable.erase(it);
+                        
                         break;
                     }
                 }
@@ -221,23 +228,94 @@ bool contactoExistMemoInterna( string name,  vector<Contacto*> contactoDir){
 };
 
 void imprimir(unordered_map<Contacto*, Node*> hashTable){
+
     if(hashTable.size() > 0){
         // Imprimir el contenido de hashTable
         for (const auto& nombres : hashTable) {
-            cout << "Key: "<< endl;
-            cout << "Nombre: " << nombres.first->nombre << endl;
-            cout << "Numero: " << nombres.first->telefono << endl;
-            cout << "  Value: "<< endl;
+            cout << "Key (Contacto): "<< endl;
+            cout << "-Nombre: " << nombres.first->nombre << endl;
+            cout << "-Telefono: " << nombres.first->telefono << endl;
+            cout << "  Value (Nodo): "<< endl;
             cout << "   -Nombre: " << (nombres.second)->name << endl;
-            cout << "   -Numero: " << (nombres.second)->number << endl;
-            cout << "   -Direccion apunta: " << (nombres.second)->last << endl;
+            cout << "   -Telefono: " << (nombres.second)->number << endl;
             cout << "   -Direccion actual: " << (nombres.second) << endl;
+            cout << "   -Direccion a la que apunta: " << (nombres.second)->last << endl;
             // Imprimir otros miembros de Node si es necesario
             
         }
     }else{
-        cout << "HashTable vacia" << endl;
+        cout << "Almacenamiento-cloud vacio" << endl;
     }
 
 
+};
+
+void bubbleSort(vector<Contacto*> &arr) {
+    int n = arr.size();
+    bool swapped;
+    do {
+        swapped = false;
+        for (int i = 1; i < n; i++) {
+            // Eliminar espacios en blanco de los nombres antes de comparar
+            std::string nombre1 = arr[i - 1]->nombre;
+            nombre1.erase(remove_if(nombre1.begin(), nombre1.end(), ::isspace), nombre1.end());
+
+            std::string nombre2 = arr[i]->nombre;
+            nombre2.erase(remove_if(nombre2.begin(), nombre2.end(), ::isspace), nombre2.end());
+
+            // Comparar los nombres y intercambiar si están en el orden incorrecto
+            if (nombre1 > nombre2) {
+                // Intercambiar los elementos
+                Contacto* temp = arr[i - 1];
+                arr[i - 1] = arr[i];
+                arr[i] = temp;
+                swapped = true;
+            }
+        }
+        n--;
+    } while (swapped);
+}
+
+
+void mostrar(vector<Contacto*> contactoDir){
+    cout << "Contactos almacenados en la memoria interna" << endl;
+    //Vector con las direcciones de memoria de los objetos tipo contacto
+    //convertir name a minuscula y quitar espacios en blanco
+    bubbleSort(contactoDir);
+    for (const auto& contacto : contactoDir) {
+        cout << "Nombre: " << contacto->nombre << " Telefono: " << contacto->telefono << endl;
+    }
+
+};
+
+
+void sortLinkeList(const Node* nodoAEliminar, vector<tuple<Node*, int>> &nodeDir){
+
+     // Buscar el nodo a eliminar en el vector de tuplas
+    auto it = find_if(nodeDir.begin(), nodeDir.end(), [nodoAEliminar](const tuple<Node*, int>& t) {
+        return get<0>(t) == nodoAEliminar;
+    });
+
+    // Caso de haber encontrado el nodo a eliminar
+    if (it != nodeDir.end()) {
+        // Obtener la posición del nodo a eliminar en la lista enlazada
+        int posicion = get<1>(*it);
+
+        // Actualizar el puntero last del nodo siguiente al nodo a eliminar
+        if (posicion < nodeDir.size() - 1) {
+            Node* nodoSiguiente = get<0>(nodeDir[posicion + 1]);
+            if (nodoSiguiente != nullptr) {
+                nodoSiguiente->last = (posicion > 0) ? get<0>(nodeDir[posicion - 1]) : nullptr;
+            }
+        }
+
+        // Eliminar el elemento del vector de tuplas
+        nodeDir.erase(it);
+
+        // Actualizar las posiciones de los nodos en el vector de tuplas
+        for (int i = posicion + 1; i < nodeDir.size(); i++) {
+            get<1>(nodeDir[i])--;  // Decrementar la posición de los nodos siguientes
+        }
+    }
+ 
 };
