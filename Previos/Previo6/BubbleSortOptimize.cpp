@@ -47,9 +47,11 @@ int main() {
 
     //encontrar la longitud del array
     int size = sizeof(data)/sizeof(data[0]);
+    //ordeno elementos
     bubbleSort(data, size);
 
     cout << "Array ordenado ascendentemente" << endl;
+    //Imprimo elementos ordenados
     printArray(data, size);
 
     return 0;
