@@ -1,3 +1,14 @@
+/**
+ * @file Funciones.cpp
+ * @brief Archivo con la logica de las funciones, funciones de agregar, eliminar e imprimir contactos, entre otras.
+ * 
+ *
+ * @author Jose Pablo Laurent Chaves
+ * @date 2024
+ * @version 1.0
+ * @license MIT
+ */
+
 #include "Funciones.hpp"
 
 void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable,

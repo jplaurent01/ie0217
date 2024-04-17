@@ -1,3 +1,13 @@
+/**
+ * @file Funcciones.hpp
+ * @brief Encabezado con las funciones del progarma que se llaman desde el main y desde el archivo Funciones.cpp
+ * 
+ *
+ * @author Jose Pablo Laurent Chaves
+ * @date 2024
+ * @version 1.0
+ * @license MIT
+ */
 #ifndef FUNCIONES_HPP
 #define FUNCIONES_HPP
 

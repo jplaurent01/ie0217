@@ -1,3 +1,12 @@
+/**
+ * @file main.cpp
+ * @brief Se realiza el llamado a las funciones y menus del programa
+ *
+ * @author Jose Pablo Laurent Chaves
+ * @date 2024
+ * @version 1.0
+ * @license MIT
+ */
 #include <string>
 #include <iostream>
 #include <unordered_map> // Diccionario posee la estructura key-value
