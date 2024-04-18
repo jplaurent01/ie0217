@@ -14,6 +14,11 @@
 #include <iostream>
 #include <string>
 //Se crea tipo de dato tipo Contacto con atributos de nombre y telefono
+/**
+ * @brief Estructura para representar un contacto.
+ * 
+ * Esta estructura contiene dos atributos: nombre y telefono.
+ */
 struct Contacto{
     //Atributos del tipo de dato
     std:: string nombre;

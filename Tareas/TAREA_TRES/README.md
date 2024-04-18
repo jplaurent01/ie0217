@@ -7,7 +7,7 @@ g++ -o main.exe .\main.cpp .\Funciones.cpp
 ```
 Luego correr el ejecutable:
 ```
-main.exe
+.\main.exe
 ```
 Link del código fuente:
 ```

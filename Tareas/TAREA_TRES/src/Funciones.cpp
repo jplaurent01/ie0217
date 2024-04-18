@@ -42,8 +42,8 @@ void agregarContactos(Node* nodo1, unordered_map<Contacto*, Node*> &hashTable,
                 //elimino todos los espacios en blanco del numero
                 number.erase(remove_if(number.begin(), number.end(), ::isspace), number.end());
                 //Reservo espacio de memoria de un puntero de tipo contacto
-                Contacto* ptrContacto = (Contacto*) malloc(sizeof(Contacto));
-                cout << "Asigno memoria con malloc..."<< endl;
+                //Contacto* ptrContacto = (Contacto*) malloc(sizeof(Contacto));
+                Contacto* ptrContacto = new Contacto;
                 //Asigno al puntero tipo contacto el contenido de las variables name y number
                  ptrContacto->nombre.assign(name);
                  ptrContacto->telefono.assign(number);
@@ -126,7 +126,9 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
             cout << "Ingrese una opcion: ";
             cin >> opcion2;
 
+            //Recorro todo el contenido del string buscando que sea un entero y una opcion valida
             if(all_of(opcion2.begin(), opcion2.end(), ::isdigit) && (opcion2 == "1" || opcion2 == "2" || opcion2 == "3")){
+                //Convierto el string a int
                 opcion = stoi(opcion2);
                 switch (opcion) {
             
@@ -134,12 +136,19 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
             //Debo eliminar bloque memoria Contacto con free
             //eliminar del vector contactoDir el item correspondiente a la memoria
             case ELIMINAR1:{
+                //Si el el bloque de memoria ya fue eliminado, flag se mantiene como false
                 bool flagMemoInterna = false;
+                //Recorro todo el contenido del vector, buscando una direccion de memoria que almacene un nombre
                 for (auto it = contactoDir.begin(); it != contactoDir.end(); ++it) {
+                    //Caso donde la memoria almacena un nombre igual al ingresado
                     if ((*it)->nombre == name) {
                         flagMemoInterna = true;
                         //Liberar memoria del objeto contacto
-                        free(*it);  
+                        //free(*it);
+                        cout << "Memoria antes de eliminar: " << *it << endl;
+                        delete  *it;
+                        *it = nullptr;
+                        cout << "Memoria despues de eliminar: " << *it << endl;
                         // Eliminar el elemento del vector
                         contactoDir.erase(it);
                         break;
@@ -159,18 +168,24 @@ void eliminarContacto(unordered_map<Contacto*, Node*> &hashTable, vector<Contact
 
             //Caso donde elimino memoria del almacenamiento - cloud    
             case ELIMINAR2:{
-
+                //False se mantiene como false si la informacion ya fue eliminada de la tabla hash
                 bool flagCloud = false;
+                //Recorro toda la tabla hash
                 for (auto it = hashTable.begin(); it != hashTable.end(); ++it) {
                     //Memoria del objeto tipo contacto
-                    if (it->first->nombre == name) {
+                    // if (it->first->nombre == name)
+                    //En caso de que el nodo contenga un nombre igual al nombre ingresado por el usuario
+                    if (it->second->name == name) {
                         flagCloud = true;
                         //Liberar memoria del objeto contacto
                         //free(it->first);
                         //debo ordenar la lista enlazada
                         sortLinkeList(it->second, nodeDir);
                         //Liberar memoria del objeto nodo
+                        cout << "Memoria antes de eliminar: " << it->second << endl;
                         delete it->second;
+                        it->second = nullptr;
+                        cout << "Memoria despues de eliminar: " << it->second << endl;
                         //Eliminar el elemento del hashtable
                         hashTable.erase(it);
                         
@@ -219,12 +234,21 @@ bool contactoExistHashTable( string name,  unordered_map<Contacto*, Node*> hashT
     bool nameUnico = false;
     //iter sobre cada uno de los key:name del hashTable
     for (const auto& nombres : hashTable){
-        //desreferencio el contenido de la direccion de memoria y lo comparo con el string
-        //caso donde encuentro una coincidencia
-        if (nombres.first->nombre == name){
+        //El contacto existe si el nodo contiene infrmación sobre el nombre buscado
+        if (nombres.second->name == name){
             nameUnico = true;
             break;
         }
+        //Caso de que se eliminara la memoria interna
+        //la direccion de memoria entraría como nullptr
+        //else if (nombres.first == nullptr){
+            //if (nombres.second->name == name){
+              //  nameUnico = true;
+            //    break;
+          //  }
+            
+        //}
+        
     }
     return nameUnico;
 
@@ -234,6 +258,7 @@ bool contactoExistMemoInterna( string name,  vector<Contacto*> contactoDir){
     // Verificar si el nombre es único
     bool nameUnico = false;
         for (const auto& contactoPtr : contactoDir) {
+            //El contacto eiste si el objeto de tipo contacto almacena el bloque buscado
             if (contactoPtr->nombre == name) {
                 // Se encontró el nombre
                 nameUnico = true;
@@ -249,8 +274,8 @@ void imprimir(unordered_map<Contacto*, Node*> hashTable){
         // Imprimir el contenido de hashTable
         for (const auto& nombres : hashTable) {
             cout << "Key (Contacto): "<< endl;
-            cout << "-Nombre: " << nombres.first->nombre << endl;
-            cout << "-Telefono: " << nombres.first->telefono << endl;
+            cout << "-Nombre: " << (nombres.second)->name  << endl;
+            cout << "-Telefono: " << (nombres.second)->number << endl;
             cout << "  Value (Nodo): "<< endl;
             cout << "   -Nombre: " << (nombres.second)->name << endl;
             cout << "   -Telefono: " << (nombres.second)->number << endl;
@@ -314,6 +339,7 @@ void mostrar(vector<Contacto*> contactoDir){
 
 void sortLinkeList(const Node* nodoAEliminar, vector<tuple<Node*, int>> &nodeDir){
     int count = 0;
+    //Caso donde tengo un unico elemento en el vector
     if (nodeDir.size() <= 1){
 
         //Elimo primer elemento del vector
@@ -322,7 +348,8 @@ void sortLinkeList(const Node* nodoAEliminar, vector<tuple<Node*, int>> &nodeDir
         //me salgo de la funcion
         return;
 
-    }else {
+    }//Caso donde tengo al menos 2 elementos en el vector
+    else {
             for (int i = 0; i < nodeDir.size(); i++){
                 if (nodoAEliminar == get<0>(nodeDir[i])){
                     break;
@@ -336,6 +363,7 @@ void sortLinkeList(const Node* nodoAEliminar, vector<tuple<Node*, int>> &nodeDir
         cout << "Elimino primer nodo de la lista" << endl;
         //Node *nodoPosterior = get<0>(nodeDir[count + 1]);
         //nodoPosterior->last = nullptr;
+        //Nodo que le sigue al nodoa eliminado apunta a nullptr
         get<0>(nodeDir[count + 1])->last = nullptr;
         nodeDir.erase(nodeDir.begin() + 0);
 
@@ -346,6 +374,7 @@ void sortLinkeList(const Node* nodoAEliminar, vector<tuple<Node*, int>> &nodeDir
         //Node *nodoPosterior = get<0>(nodeDir[count + 1]);
         //Nodo apuntara a la direccion de memoria del nodo anterior al que voy a eliminar
         cout << "Elimino nodo intermedio de la lista" << endl;
+        //El nodo que le sigue al nodo eliminado, apunta al nodo anterior
         get<0>(nodeDir[count + 1])->last = get<0>(nodeDir[count-1]);
         nodeDir.erase(nodeDir.begin() + count);
         //Nodo anterior de conserva igual, solo se modifica el nodo posterior

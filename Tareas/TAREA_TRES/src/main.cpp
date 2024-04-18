@@ -27,6 +27,11 @@ enum Opciones {
     SALIR
 };
 
+/**
+ * @brief Ejecuta menus del programa y realiza el llamado a multiples funciones de Funciones.hpp.
+ * 
+ * @return 0 al terminar la ejecuación del programa.
+ */
 int main() {
         int opcion;
         //hashTable,guarda direciion memoria objeto contacto y dir del nodo
@@ -102,6 +107,7 @@ int main() {
                     //Libero memoria del puntero tipo string name
                     //free(pair.first);
                     delete pair.second;
+                    pair.second = nullptr;
                 }
             }
             
@@ -109,7 +115,9 @@ int main() {
                 //Libero memoria restante asignada a los objetos contactos (memoria intern)
                 for (auto& element : contactoDir) {
                     //Libero memoria del puntero tipo string name
-                    free(element);
+                    //free(element);
+                    delete element;
+                    element = nullptr;
                 }
             }
             

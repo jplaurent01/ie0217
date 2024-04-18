@@ -16,6 +16,10 @@
 using namespace std;
 
 // Se crea una clase para representar un nodo de la lista enlazada
+/**
+ * @brief Clase para representar un nodo de la lista enlazada.
+ * Esta clase contiene tres atributos: nombre, telefono y un puntero que apunta hacia el bloque de memoria anterior al nodo actual.
+ */
 class Node {
     public:
         //Nombre almacenado en el nodo
