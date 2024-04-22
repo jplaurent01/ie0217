@@ -41,6 +41,25 @@ int main(){
         cout << num << ", ";
     }
     
+    //Contenedor ordenado almacena elementos en forma de par, donde el key: integer y value:String.
+    map<int, string> student;
+
+    //Se usa el operdador para agregar elementos por indice[]
+    student[1] = "Jaqueline";
+    student[2] = "Blake";
+
+    //se utiliza el metodo insert para agregar el par
+    student.insert(make_pair(3, "Dennise"));
+    student.insert(make_pair(4, "Blake"));
+
+    // Se agregan elementos con keys duplicados, se sustituye "Timoty" por "Jose"
+    student[5] = "Timoty";
+    student[5] = "Jose";
+
+    for (int i = 1; i <= student.size(); i++){
+        cout << " Student["<< i << "] :" << student[i] << endl;
+    }
+    
 
     return 0;
 }
