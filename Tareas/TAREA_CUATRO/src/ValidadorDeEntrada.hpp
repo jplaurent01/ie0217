@@ -15,7 +15,7 @@ class ValidadorDeEntrada {
     public:
         bool validarTipoDato(std::string input, std::string tName, T &value){
 
-            if ( !input.empty() && all_of(input.begin(), input.end(), ::isdigit) && tName == "i"){
+            if ( !input.empty() && all_of(input.begin(), input.end(), esDigit) && tName == "i"){
                 try{
                     value = stoi(input);
                     std::cout << "\nDato int valido" << std::endl;
@@ -59,16 +59,6 @@ class ValidadorDeEntrada {
                 if (all_of(partes[0].begin(), partes[0].end(), isfloat)){
                     if (all_of(partes[1].begin(), partes[1].end(), isfloat)){
                         try {
-                            //float realPart, imagPart;
-                            //realPart = stod(partes[0]);
-                            //imagPart = stod(partes[1]);
-                            //std::cout << "\nDato compejo valido" << std::endl;
-                            //std::string s = "123,5.3";//input
-                            //std::istringstream is('(' + input + ')');
-                            //std::complex<float> c;
-                            //is >> value;
-                            //value = stof(input);
-                            //value = std::complex<double>(realPart, imagPart);
                             std::cout << "\nDato float valido" << std::endl;
                             return true;
 
@@ -89,11 +79,12 @@ class ValidadorDeEntrada {
 
         };
 
-        void validarDimensiones(int tamanio){
+        void validarDimensiones(const int tamanio){
+            std::cout << tamanio << std::endl;
             if (tamanio > 0){
                 std::cout << "Dimension valida" << std::endl;
             }else {
-                throw std::invalid_argument("Dimension invalida");
+                throw std::invalid_argument("Dimension invalida debe ingresar de nuevo las matrices");
             }
             
         };
@@ -104,9 +95,9 @@ class ValidadorDeEntrada {
             return std::isdigit(c) || c == '.' || c == '-';
         };
 
-        //static bool isComplex(const char& c) {
-          //  return std::isdigit(c) || c == '.' || c == '-';
-        //};
+        static bool esDigit(const char& c) {
+            return std::isdigit(c) || c == '-';
+        };
 
 
 };

@@ -14,6 +14,7 @@
 #include <complex>
 #include "Matriz.hpp"
 #include <memory> // Para std::unique_ptr
+#include "OperacionesBasicas.hpp"
 
 using namespace std;
 
@@ -73,30 +74,52 @@ int main() {
                 int fila;
                 int columna;
 
+                string filasTwo;
+                string columnasTwo;
+                int filaTwo;
+                int columnaTwo;
+
                 if (ptrTipoDato != nullptr){
                     cout << "Contenido de ptrTipoDato" << *ptrTipoDato << endl;
                     //Se establece que las matrices que se van a crear son de las mismas dimensiones
-                    cout << "Ingrese un numero entero para las filas de las  matrices" << endl;
+                    cout << "Ingrese un numero entero para las filas de la  matriz 1" << endl;
                     cin.ignore();
                     getline(cin, filas);
 
-                    cout << "Ingrese un numero entero para las columnas de las  matrices" << endl;
+                    cout << "Ingrese un numero entero para las columnas de la  matriz 1" << endl;
                     
                     getline(cin, columnas);
-                    if (all_of(filas.begin(), filas.end(), ::isdigit)){
 
-                        if (all_of(columnas.begin(), columnas.end(), ::isdigit)){
+                    cout << "Ingrese un numero entero para las filas de la  matriz 2" << endl;
+                    getline(cin, filasTwo);
+
+                    cout << "Ingrese un numero entero para las columnas de la  matriz 2" << endl;
+                    getline(cin, columnasTwo);
+
+                    if (all_of(filas.begin(), filas.end(), ::isdigit) && all_of(filasTwo.begin(), filasTwo.end(), ::isdigit)){
+
+                        if (all_of(columnas.begin(), columnas.end(), ::isdigit) && all_of(columnasTwo.begin(), columnasTwo.end(), ::isdigit)){
 
                             try{
                                 fila = stoi(filas);
                                 columna = stoi(columnas);
+
+                                cout << "fila 1: " << fila <<endl;
+                                cout << "columna 1: " << columna <<endl;
+
+                                filaTwo = stoi(filasTwo);
+                                columnaTwo = stoi(columnasTwo);
+
+                                cout << "fila 2: " << filaTwo <<endl;
+                                cout << "columna 2: " << filaTwo <<endl;
                                 
                                 //Caso donde seleciono un tipo de dato entero
                                 if (*ptrTipoDato == 1){
                                     cout << "Matriz enteros" << endl;
                                     //Si se cumplen condiciones de tamanios, se crean dos objetos de tipo matriz
                                     Matriz<int> matrizUno(fila,columna);
-                                    Matriz<int> matrizDos(fila,columna);
+                                    Matriz<int> matrizDos(filaTwo,columnaTwo);
+
                                     cout << "Llenado de la matriz 1 ..." << endl;
                                     matrizUno.llenarMatriz();
 
@@ -107,12 +130,18 @@ int main() {
                                     ptrMatrizUnoInt = make_unique<Matriz<int>>(matrizUno);
                                     ptrMatrizDosInt = make_unique<Matriz<int>>(matrizDos);
 
+                                    ptrMatrizUnoFloat = nullptr;
+                                    ptrMatrizDosFloat = nullptr;
+                                    //Punteros a matrices complejas
+                                    ptrMatrizUnoComplex = nullptr;
+                                    ptrMatrizDosComplex = nullptr;
+
                                 }else if(*ptrTipoDato == 2){
 
                                     cout << "Matriz flotantes" << endl;
                                     //Si se cumplen condiciones de tamanios, se crean dos objetos de tipo matriz
                                     Matriz<float> matrizUno(fila,columna);
-                                    Matriz<float> matrizDos(fila,columna);
+                                    Matriz<float> matrizDos(filaTwo,columnaTwo);
 
                                     cout << "Llenado de la matriz 1 ..." << endl;
                                     matrizUno.llenarMatriz();
@@ -125,12 +154,18 @@ int main() {
                                     ptrMatrizUnoFloat = make_unique<Matriz<float>>(matrizUno);
                                     ptrMatrizDosFloat = make_unique<Matriz<float>>(matrizDos);
 
+                                    ptrMatrizUnoInt = nullptr;
+                                    ptrMatrizDosInt = nullptr;
+
+                                    ptrMatrizUnoComplex = nullptr;
+                                    ptrMatrizDosComplex = nullptr;
+
                                 }else if(*ptrTipoDato == 3){
 
                                     cout << "Matriz compleja" << endl;
                                     //Si se cumplen condiciones de tamanios, se crean dos objetos de tipo matriz
                                     Matriz<std::complex<double>> matrizUno(fila,columna);
-                                    Matriz<std::complex<double>> matrizDos(fila,columna);
+                                    Matriz<std::complex<double>> matrizDos(filaTwo,columnaTwo);
 
                                     cout << "Llenado de la matriz 1 ..." << endl;
                                     matrizUno.llenarMatriz(0);
@@ -142,6 +177,12 @@ int main() {
                                     //ptrMatrizDosComplex = &matrizDos;
                                     ptrMatrizUnoComplex = make_unique<Matriz<complex<double>>>(matrizUno);
                                     ptrMatrizDosComplex = make_unique<Matriz<complex<double>>>(matrizDos);
+
+                                    ptrMatrizUnoInt = nullptr;
+                                    ptrMatrizDosInt = nullptr;
+                                    ptrMatrizUnoFloat = nullptr;
+                                    ptrMatrizDosFloat = nullptr;
+
                                     
                                 }else{
                                     cout << "Se ingreso un tipo de dato NO valido" << endl;
@@ -163,10 +204,6 @@ int main() {
                 }else{
                     cout << "1ero debe selecionar un tipo de dato para las matrices" << endl;
                 }
-                
-
-                
-                
             }
             break;
                 
@@ -187,13 +224,10 @@ int main() {
                 }else{
                     cout << "Debe ingresar un numero entero entre 1,2 y 3 como opcion" << endl;
                 }
-                
-                
             }
                 break;
 
             case OPERACION:{
-
 
                 string opcion4;
                 int opt4;
@@ -215,7 +249,7 @@ int main() {
                 }
 
                 break;
-
+            //Datos aleatorios
             case BOTON1:{
                 
                 if (ptrTipoDato != nullptr){
@@ -227,26 +261,26 @@ int main() {
                 }
 
                 break;
-
+            //Ver matrices
             case BOTON2:{
                 
                 if (ptrTipoDato != nullptr){
 
-                    if (*ptrTipoDato == 1){
+                    if (*ptrTipoDato == 1 && ptrMatrizUnoInt != nullptr && ptrMatrizDosInt != nullptr){
 
                         cout << "\nMatriz 1 Int..." << endl;
                         ptrMatrizUnoInt->imprimirMatriz();
                         cout << "\nMatriz 2 Int..." << endl;
                         ptrMatrizDosInt->imprimirMatriz();
 
-                    }else if (*ptrTipoDato == 2){
+                    }else if (*ptrTipoDato == 2 && ptrMatrizUnoFloat != nullptr && ptrMatrizDosFloat != nullptr){
 
                         cout << "\nMatriz 1 Float..." << endl;
                         ptrMatrizUnoFloat->imprimirMatriz();
                         cout << "\nMatriz 2 Float..." << endl;
                         ptrMatrizDosFloat->imprimirMatriz();
                         
-                    }else if (*ptrTipoDato == 3){
+                    }else if (*ptrTipoDato == 3 && ptrMatrizUnoComplex != nullptr && ptrMatrizDosComplex != nullptr){
 
                         cout << "\nMatriz 1 Complex..." << endl;
                         ptrMatrizUnoComplex->imprimirMatriz(0);
@@ -265,12 +299,94 @@ int main() {
                 }
 
                 break;
-
+            //Operaciones de matrices
             case BOTON3:{
 
                 if (ptrTipoDato != nullptr){
                     if (ptrTipoOperacion != nullptr){
                         
+                         if (ptrMatrizUnoInt !=nullptr && ptrMatrizDosInt !=nullptr){
+                            cout << "Esoy en caso de operacion Int" << endl;
+                            try{    
+                                if (*ptrTipoOperacion == 1){
+                                    OperacionesBasicas<int>::validarSumaResta(*ptrMatrizUnoInt, *ptrMatrizDosInt);
+                                    Matriz<int> resultado =  *ptrMatrizUnoInt + *ptrMatrizDosInt;
+                                    cout << "Suma int ... " << endl;
+                                    resultado.imprimirMatriz();
+
+                                }else if(*ptrTipoOperacion == 2){
+                                    OperacionesBasicas<int>::validarSumaResta(*ptrMatrizUnoInt, *ptrMatrizDosInt);
+                                    Matriz<int> resultado =  *ptrMatrizUnoInt - *ptrMatrizDosInt;
+                                    cout << "Resta int ... " << endl;
+                                    resultado.imprimirMatriz();
+                                }else if(*ptrTipoOperacion == 3){
+                                    OperacionesBasicas<int>::validarMultiplicacion(*ptrMatrizUnoInt, *ptrMatrizDosInt);
+                                    Matriz<int> resultado =  *ptrMatrizUnoInt * *ptrMatrizDosInt;
+                                    cout << "Multiplicacion int ... " << endl;
+                                    resultado.imprimirMatriz();
+                                }else{
+                                    cout << "No se pudo realizar la operacion" << endl;
+                                }
+                            }catch(const std::exception& e){
+                                std::cerr << e.what() << '\n';
+                            }
+                            
+                        }else if (ptrMatrizUnoFloat !=nullptr && ptrMatrizDosFloat !=nullptr){
+                            cout << "Esoy en caso de operacion Float" << endl;
+                            try{
+                                if (*ptrTipoOperacion == 1){
+                                    OperacionesBasicas<float>::validarSumaResta(*ptrMatrizUnoFloat, *ptrMatrizDosFloat);
+                                    Matriz<float> resultado =  *ptrMatrizUnoFloat + *ptrMatrizDosFloat;
+                                    cout << "Suma flotante ... " << endl;
+                                    resultado.imprimirMatriz();
+                                }else if(*ptrTipoOperacion == 2){
+                                    OperacionesBasicas<float>::validarSumaResta(*ptrMatrizUnoFloat, *ptrMatrizDosFloat);
+                                    Matriz<float> resultado =  *ptrMatrizUnoFloat - *ptrMatrizDosFloat;
+                                    cout << "Resta flotante ... " << endl;
+                                    resultado.imprimirMatriz();
+                                }else if(*ptrTipoOperacion == 3){
+                                    OperacionesBasicas<float>::validarMultiplicacion(*ptrMatrizUnoFloat, *ptrMatrizDosFloat);
+                                    Matriz<float> resultado =  *ptrMatrizUnoFloat * *ptrMatrizDosFloat;
+                                    cout << "Multiplicacion flotante ... " << endl;
+                                    resultado.imprimirMatriz();
+                                }else{
+                                    cout << "No se pudo realizar la operacion" << endl;
+                                }
+                            }
+                            catch(const std::exception& e){
+                                std::cerr << e.what() << '\n';
+                            }
+                        
+                        }else if (ptrMatrizUnoComplex !=nullptr && ptrMatrizDosComplex !=nullptr){
+                            cout << "Esoy en caso de operacion Complex" << endl;
+                           try{
+                                if (*ptrTipoOperacion == 1){
+                                    OperacionesBasicas<complex<double>>::validarSumaResta(*ptrMatrizUnoComplex, *ptrMatrizDosComplex);
+                                    Matriz<complex<double>> resultado =  *ptrMatrizUnoComplex + *ptrMatrizDosComplex;
+                                    cout << "Suma compleja ... " << endl;
+                                    resultado.imprimirMatriz();
+                                }else if(*ptrTipoOperacion == 2){
+                                    OperacionesBasicas<complex<double>>::validarSumaResta(*ptrMatrizUnoComplex, *ptrMatrizDosComplex);
+                                    Matriz<complex<double>> resultado =  *ptrMatrizUnoComplex - *ptrMatrizDosComplex;
+                                    cout << "Resta compleja ... " << endl;
+                                    resultado.imprimirMatriz();
+                                }else if(*ptrTipoOperacion == 3){
+                                    OperacionesBasicas<complex<double>>::validarMultiplicacion(*ptrMatrizUnoComplex, *ptrMatrizDosComplex);
+                                    Matriz<complex<double>> resultado =  *ptrMatrizUnoComplex * *ptrMatrizDosComplex;
+                                    cout << "Multiplicacion compleja ... " << endl;
+                                    resultado.imprimirMatriz();
+                                }else{
+                                    cout << "No se pudo realizar la operacion" << endl;
+                                }
+                           }
+                           catch(const std::exception& e){
+                            std::cerr << e.what() << '\n';
+                           }
+                           
+                        }else{
+                            cout << "No se agrego informacion a ninguna matriz para realizar la operacion" << endl;
+                        }
+
                     }else{
                         cout << "Debe ingresar el tipo de operacion de las matrices" << endl;
                     }
@@ -278,9 +394,7 @@ int main() {
                 }else {
                     cout << "Debe ingresar el tipo de dato de las matrices" << endl;
                 }
-                
                 }
-
                 break;
 
             case SALIR:
