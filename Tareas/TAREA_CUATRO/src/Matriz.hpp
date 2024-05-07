@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <numeric>
 #include "ValidadorDeEntrada.hpp"
+#include <random>
 //#include "OperacionesBasicas.hpp"
 
 // Declaración adelantada de la clase OperacionesBasicas
@@ -133,7 +134,42 @@ class Matriz{
 
    
         }
-        
+        //Se agregó esta funcion nueva
+        void generarDatosAleatorios(int complexFlag = -1){
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_real_distribution<double>dis(0.0,1.0);
+            if (complexFlag == 0) {
+                for ( auto& fila: matrizComplex){
+                    for ( auto& columna: matrizComplex){
+                        double real = dis(gen)*100.0;
+                        double img = dis(gen)*100.0;
+                        columna  = std::complex<double>(real, img);
+                    }
+                    
+                }
+                
+            }else{
+
+                for ( auto& fila: matriz){
+                    for ( auto& columna: matriz){
+                        if(std::is_same<T,int>::value){
+                            columna = static_cast<T>(dis(gen) * 100);
+                        }else if(std::is_same<T,float>::value){
+                            columna = static_cast<T>(dis(gen) * 100.0f);
+                        }
+                        else{
+                            std::cout << "No encontre dato para convertir" << std::endl;
+                        }
+
+                    }
+                    
+                }
+
+            }
+        }
+
+
         Matriz<T> operator+(const Matriz<T>& matriz1){
                 if (std::is_same<T, std::complex<double>>::value) {
                     std::cout << "matriz.size(): " << matrizComplex.size()<<std::endl;
@@ -198,7 +234,7 @@ class Matriz{
                 //std::cout << "Itero bucle: " <<std::endl;
                 for (int i = 0; i < matrizComplex.size(); ++i) {
                     std::transform(matrizComplex[i].begin(), matrizComplex[i].end(), matriz1.matrizComplex[i].begin(), resultado.matrizComplex[i].begin(),
-                           [](std::complex<double> a, std::complex<double> b) { return a - b; });
+                   [](std::complex<double> a, std::complex<double> b) { return a - b; });
                     //std::transform(matrizComplex[i].begin(), matrizComplex[i].end(),
                       //          matriz1.matrizComplex[i].begin(), resultado.matrizComplex[i].begin(),
                         //        std::plus<std::complex<double>>());
@@ -228,33 +264,53 @@ class Matriz{
             
         };
 
+        //Revisar multiplicacion
         Matriz<T> operator*(const Matriz<T>& matriz2){
-            
-                Matriz<T> resultado(matriz.size(), matriz2.columnas);
+
+                if (std::is_same<T, std::complex<double>>::value) {
+
+                    std::cout << "matriz.size(): " << matrizComplex.size()<<std::endl;
+                    std::cout << "matriz[0].size(): " << matrizComplex[0].size()<<std::endl;
+                    Matriz<T> resultado(matrizComplex.size(), matriz2.columnas);
 
                     for (int i = 0; i < filas; i++) {
-                        std::vector<T> tempVector;
+                        std::vector<std::complex<double>> tempVector;
                         for (int j = 0; j < columnas; j++) {
-                            tempVector.push_back(0);
+                            std::complex<double> c2 = {0.0, 0.0};
+                            tempVector.push_back(c2);
                         }
-                        resultado.matriz.push_back(tempVector);
+                        resultado.matrizComplex.push_back(tempVector);
                     }
+                    return resultado;
+                }
+                else{
+                    Matriz<T> resultado(matriz.size(), matriz2.columnas);
 
-                    //for ( int i = 0; i < matriz.size(); i++){
-                      //  std::transform(matriz[i].begin(), matriz[i].end(), matriz2.matriz[i].begin(), resultado.matriz[i].begin(),
-                       // []( T a, T b) { return a * b; });
-                    //}
+                        for (int i = 0; i < filas; i++) {
+                            std::vector<T> tempVector;
+                            for (int j = 0; j < columnas; j++) {
+                                tempVector.push_back(0);
+                            }
+                            resultado.matriz.push_back(tempVector);
+                        }
+
+                        //for ( int i = 0; i < matriz.size(); i++){
+                            //  std::transform(matriz[i].begin(), matriz[i].end(), matriz2.matriz[i].begin(), resultado.matriz[i].begin(),
+                            // []( T a, T b) { return a * b; });
+                        //}
 
 
-                    for (int i = 0; i < filas; ++i) {
-                        for (int j = 0; j < matriz2.columnas; ++j) {
-                            for (int k = 0; k < columnas; ++k) {
-                                resultado.matriz[i][j] += matriz[i][k] * matriz2.matriz[k][j];
+                        for (int i = 0; i < filas; ++i) {
+                            for (int j = 0; j < matriz2.columnas; ++j) {
+                                for (int k = 0; k < columnas; ++k) {
+                                    resultado.matriz[i][j] += matriz[i][k] * matriz2.matriz[k][j];
+                                }
                             }
                         }
-                    }
 
-                return resultado;
+                    return resultado;
+                }
+ 
             };
 
 };
