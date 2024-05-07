@@ -133,11 +133,33 @@ class Matriz{
 
    
         }
-       
-        /*
-                Matriz<T> operator+(const Matriz<T>& matriz1){
-                
-                Matriz<T> resultado(matriz.size(),matriz[0].size());
+        
+        Matriz<T> operator+(const Matriz<T>& matriz1){
+                if (std::is_same<T, std::complex<double>>::value) {
+                    std::cout << "matriz.size(): " << matrizComplex.size()<<std::endl;
+                    std::cout << "matriz[0].size(): " << matrizComplex[0].size()<<std::endl;
+                    Matriz<T> resultado(matrizComplex.size(),matrizComplex[0].size());
+
+                //std::cout << "Se crea constructor: " << matrizComplex[0].size()<<std::endl;
+                 for (int i = 0; i < filas; i++) {
+                    std::vector<std::complex<double>> tempVector;
+                    for (int j = 0; j < columnas; j++) {
+                        std::complex<double> c2 = {0.0, 0.0};
+                        tempVector.push_back(c2);
+                    }
+                    resultado.matrizComplex.push_back(tempVector);
+                    }
+                //std::cout << "Itero bucle: " <<std::endl;
+                for (int i = 0; i < matrizComplex.size(); ++i) {
+                    std::transform(matrizComplex[i].begin(), matrizComplex[i].end(),
+                                matriz1.matrizComplex[i].begin(), resultado.matrizComplex[i].begin(),
+                                std::plus<std::complex<double>>());
+                }
+
+                return resultado;
+
+                }else{
+                     Matriz<T> resultado(matriz.size(),matriz[0].size());
                 
                  for (int i = 0; i < filas; i++) {
                     std::vector<T> tempVector;
@@ -152,12 +174,40 @@ class Matriz{
                 }
 
                 return resultado;
-            
+                }
+
         };
-        */
+       
 
         Matriz<T> operator-(const Matriz<T>& matriz1){
-            
+
+            if (std::is_same<T, std::complex<double>>::value) {
+                    std::cout << "matriz.size(): " << matrizComplex.size()<<std::endl;
+                    std::cout << "matriz[0].size(): " << matrizComplex[0].size()<<std::endl;
+                    Matriz<T> resultado(matrizComplex.size(),matrizComplex[0].size());
+
+                //std::cout << "Se crea constructor: " << matrizComplex[0].size()<<std::endl;
+                 for (int i = 0; i < filas; i++) {
+                    std::vector<std::complex<double>> tempVector;
+                    for (int j = 0; j < columnas; j++) {
+                        std::complex<double> c2 = {0.0, 0.0};
+                        tempVector.push_back(c2);
+                    }
+                    resultado.matrizComplex.push_back(tempVector);
+                    }
+                //std::cout << "Itero bucle: " <<std::endl;
+                for (int i = 0; i < matrizComplex.size(); ++i) {
+                    std::transform(matrizComplex[i].begin(), matrizComplex[i].end(), matriz1.matrizComplex[i].begin(), resultado.matrizComplex[i].begin(),
+                           [](std::complex<double> a, std::complex<double> b) { return a - b; });
+                    //std::transform(matrizComplex[i].begin(), matrizComplex[i].end(),
+                      //          matriz1.matrizComplex[i].begin(), resultado.matrizComplex[i].begin(),
+                        //        std::plus<std::complex<double>>());
+                }
+
+                return resultado;
+
+                }else{
+
                 Matriz<T> resultado(matriz.size(),matriz[0].size());
                 
                  for (int i = 0; i < filas; i++) {
@@ -174,6 +224,7 @@ class Matriz{
                 }
                 
                 return resultado;
+            }
             
         };
 
@@ -211,3 +262,83 @@ class Matriz{
 
 
 #endif //MATRIZ_HPP
+
+        //Caso de la suma
+        /*
+                Matriz<T> operator+(const Matriz<T>& matriz1){
+                
+                Matriz<T> resultado(matriz.size(),matriz[0].size());
+                
+                 for (int i = 0; i < filas; i++) {
+                    std::vector<T> tempVector;
+                    for (int j = 0; j < columnas; j++) {
+                        tempVector.push_back(0);
+                    }
+                    resultado.matriz.push_back(tempVector);
+                    }
+                
+                for (int i = 0; i < matriz.size(); i++) {
+                    std::transform(matriz[i].begin(), matriz[i].end(), matriz1.matriz[i].begin(), resultado.matriz[i].begin(), std::plus<T>());
+                }
+
+                return resultado;
+            
+        };
+        */
+
+       //Caso de la resta
+       /*
+               Matriz<T> operator-(const Matriz<T>& matriz1){
+            
+                Matriz<T> resultado(matriz.size(),matriz[0].size());
+                
+                 for (int i = 0; i < filas; i++) {
+                    std::vector<T> tempVector;
+                    for (int j = 0; j < columnas; j++) {
+                        tempVector.push_back(0);
+                    }
+                    resultado.matriz.push_back(tempVector);
+                    }
+
+                for ( int i = 0; i < matriz.size(); i++){
+                    std::transform(matriz[i].begin(), matriz[i].end(), matriz1.matriz[i].begin(), resultado.matriz[i].begin(),
+                   [](T a, T b) { return a - b; });
+                }
+                
+                return resultado;
+            
+        };
+
+       */
+
+      //Caso de la multiplicacion
+      /*
+      Matriz<T> operator*(const Matriz<T>& matriz2){
+            
+                Matriz<T> resultado(matriz.size(), matriz2.columnas);
+
+                    for (int i = 0; i < filas; i++) {
+                        std::vector<T> tempVector;
+                        for (int j = 0; j < columnas; j++) {
+                            tempVector.push_back(0);
+                        }
+                        resultado.matriz.push_back(tempVector);
+                    }
+
+                    //for ( int i = 0; i < matriz.size(); i++){
+                      //  std::transform(matriz[i].begin(), matriz[i].end(), matriz2.matriz[i].begin(), resultado.matriz[i].begin(),
+                       // []( T a, T b) { return a * b; });
+                    //}
+
+
+                    for (int i = 0; i < filas; ++i) {
+                        for (int j = 0; j < matriz2.columnas; ++j) {
+                            for (int k = 0; k < columnas; ++k) {
+                                resultado.matriz[i][j] += matriz[i][k] * matriz2.matriz[k][j];
+                            }
+                        }
+                    }
+
+                return resultado;
+            };
+      */

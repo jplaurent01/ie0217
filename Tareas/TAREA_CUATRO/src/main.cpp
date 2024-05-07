@@ -362,19 +362,20 @@ int main() {
                            try{
                                 if (*ptrTipoOperacion == 1){
                                     OperacionesBasicas<complex<double>>::validarSumaResta(*ptrMatrizUnoComplex, *ptrMatrizDosComplex);
+                                    cout << "Algo pasa aqui..." << endl;
                                     Matriz<complex<double>> resultado =  *ptrMatrizUnoComplex + *ptrMatrizDosComplex;
                                     cout << "Suma compleja ... " << endl;
-                                    resultado.imprimirMatriz();
+                                    resultado.imprimirMatriz(0);
                                 }else if(*ptrTipoOperacion == 2){
                                     OperacionesBasicas<complex<double>>::validarSumaResta(*ptrMatrizUnoComplex, *ptrMatrizDosComplex);
                                     Matriz<complex<double>> resultado =  *ptrMatrizUnoComplex - *ptrMatrizDosComplex;
                                     cout << "Resta compleja ... " << endl;
-                                    resultado.imprimirMatriz();
+                                    resultado.imprimirMatriz(0);
                                 }else if(*ptrTipoOperacion == 3){
                                     OperacionesBasicas<complex<double>>::validarMultiplicacion(*ptrMatrizUnoComplex, *ptrMatrizDosComplex);
                                     Matriz<complex<double>> resultado =  *ptrMatrizUnoComplex * *ptrMatrizDosComplex;
                                     cout << "Multiplicacion compleja ... " << endl;
-                                    resultado.imprimirMatriz();
+                                    resultado.imprimirMatriz(0);
                                 }else{
                                     cout << "No se pudo realizar la operacion" << endl;
                                 }
