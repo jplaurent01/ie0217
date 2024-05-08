@@ -1,0 +1,37 @@
+# Tarea 4
+
+## Ejecucion del codigo
+
+
+## Respuestas
+
+### Templates
+
+1. Definicion de Templates: Explique el concepto de templates en C++ y
+proporcione un ejemplo simple.
+2. Sobrecarga de Plantillas: ¿C´omo se realiza la sobrecarga de funciones con
+plantillas en C++?
+3. Plantillas de Clases: Explique c´omo se pueden utilizar plantillas en la definicion de clases en C++.
+
+### Excepciones
+
+4. Manejo de Excepciones: Describa los bloques try, catch y throw y como
+se utilizan para el manejo de excepciones en C++.
+5. Excepciones Est´andar: Nombre al menos tres excepciones est´andar proporcionadas por C++ y proporciona ejemplos de situaciones en las que podr´ıan ser
+´utiles.
+6. Pol´ıtica de Manejo de Excepciones: ¿Que es una pol´ıtica de manejo de
+excepciones y por qu´e es importante considerarla al dise˜nar software?
+7. Noexcept: Explica el prop´osito de la palabra clave noexcept y c´omo se utiliza
+en C++.
+8. Explique la diferencia entre las excepciones std::logic error y std::runtime error.
+9. Explique que ocurre cuando una excepci´on no es capturada.
+
+### STL (Standard Template Library):
+
+10. Contenedores STL: Nombre cinco contenedores diferentes de la STL y
+explique brevemente en que situaciones ser´ıa apropiado usar cada uno.
+11. Iteradores en STL: Explique el concepto de iteradores en la STL y c´omo
+se utilizan para acceder a elementos en contenedores.
+12. Algoritmos STL: Proporcione ejemplos de al menos tres algoritmos de la
+STL y describa sus funciones basicas.
+13. Algoritmos Personalizados: ¿Como podrıa utilizar un algoritmo personalizado con la STL?
