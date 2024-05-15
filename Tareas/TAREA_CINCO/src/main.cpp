@@ -27,7 +27,8 @@ enum Opciones {
  */
 int main() {
         int opcion;
-
+        //siguiente vector almacena los correos creados
+        std::vector<std::string> almacenCorreos;
         do {
             string opcion2;
             //Menu principal
@@ -42,14 +43,23 @@ int main() {
             switch (opcion) {
             
            case AGREGAR:{
-                string opcion;
-                cout << "\nIngrese una direccion de correo: ";
+                string opcion, opcionDos, opcionTres;
+                cout << "\nIngrese un Nombre: ";
                 //cin >> opcion;
                 cin.ignore();
                 getline(cin, opcion);
+
+                cout << "\nIngrese un Dominio: ";
+                getline(cin, opcionDos);
+
+                cout << "\nIngrese una Extension: ";
+                getline(cin, opcionTres);
+
                 try{
-                    ValidadorEmail validar(opcion);
-                    validar.validarCorreo();
+                    //Creo objeto validador de Email
+                    ValidadorEmail validar(opcion, opcionDos, opcionTres);
+                    //Modifico el vector que ingresa como paramentro
+                    validar.validarCorreo(almacenCorreos);
                 }
                 catch(const std::exception& e){
                     std::cerr << e.what() << '\n';
@@ -72,3 +82,6 @@ int main() {
         } while(opcion != SALIR);
         return 0;
     }
+
+    /*
+    */

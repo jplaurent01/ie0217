@@ -1,17 +1,21 @@
 #ifndef VALIDADOREMAIL_HPP
 #define VALIDADOREMAIL_HPP
-
+#include <regex>
+#include <iostream>
+#include <stdexcept>
+#include "Funciones.hpp"
 
 #include <string>
 class ValidadorEmail{
     //Atributos prtoegidos accedibles en esta clase y clasesheredadas
     protected:
-        std::string email;
-
+        std::string nombre;
+        std::string dominio;
+        std::string extension;
  
     public:
-        ValidadorEmail(std::string _email);
-        void validarCorreo();
+        ValidadorEmail(const std::string& _nombre, const std::string& _dominio, const std::string& _extension);
+        void validarCorreo(std::vector<std::string>& almacenCorreos);
 
 };
 
