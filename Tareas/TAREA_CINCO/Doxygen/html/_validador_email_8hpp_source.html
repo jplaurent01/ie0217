@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tarea5: Archivo de código fuente C:/Users/Administrador/Documents/Estructuras_de_Datos_y_Algoritmos/repos/ie0217/Tareas/TAREA_CINCO/src/ValidadorEmail.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="cpp.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">Tarea5<span id="projectnumber">&#160;1.0</span>
+   </div>
+   <div id="projectbrief">Código fuente de la taarea 5</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">ValidadorEmail.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_validador_email_8hpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef VALIDADOREMAIL_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define VALIDADOREMAIL_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;regex&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_funciones_8hpp.html">Funciones.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_validador_email.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="class_validador_email.html">ValidadorEmail</a>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="comment">//Atributos prtoegidos accedibles en esta clase y clasesheredadas</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_validador_email.html#a90fd08fed48564e17d591906b501730d">   16</a></span>        std::string <a class="code hl_variable" href="class_validador_email.html#a90fd08fed48564e17d591906b501730d">nombre</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_validador_email.html#a07502f3c187c885fe18efdc3926fbc38">   17</a></span>        std::string <a class="code hl_variable" href="class_validador_email.html#a07502f3c187c885fe18efdc3926fbc38">dominio</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_validador_email.html#aa1127cb90695ec85592f6f826434de23">   18</a></span>        std::string <a class="code hl_variable" href="class_validador_email.html#aa1127cb90695ec85592f6f826434de23">extension</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_function" href="class_validador_email.html#a090f9d702f5723bc678b184dc069888a">ValidadorEmail</a>(<span class="keyword">const</span> std::string&amp; _nombre, <span class="keyword">const</span> std::string&amp; _dominio, <span class="keyword">const</span> std::string&amp; _extension);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_validador_email.html#a7207690077711b790a82d09e50184616">validarCorreo</a>(std::vector&lt;std::string&gt;&amp; almacenCorreos);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif </span><span class="comment">//VALIDADOREMAIL_HPP</span></div>
+<div class="ttc" id="a_funciones_8hpp_html"><div class="ttname"><a href="_funciones_8hpp.html">Funciones.hpp</a></div></div>
+<div class="ttc" id="aclass_validador_email_html"><div class="ttname"><a href="class_validador_email.html">ValidadorEmail</a></div><div class="ttdoc">Clase para validar correos electronicos.</div><div class="ttdef"><b>Definition</b> ValidadorEmail.hpp:13</div></div>
+<div class="ttc" id="aclass_validador_email_html_a07502f3c187c885fe18efdc3926fbc38"><div class="ttname"><a href="class_validador_email.html#a07502f3c187c885fe18efdc3926fbc38">ValidadorEmail::dominio</a></div><div class="ttdeci">std::string dominio</div><div class="ttdef"><b>Definition</b> ValidadorEmail.hpp:17</div></div>
+<div class="ttc" id="aclass_validador_email_html_a090f9d702f5723bc678b184dc069888a"><div class="ttname"><a href="class_validador_email.html#a090f9d702f5723bc678b184dc069888a">ValidadorEmail::ValidadorEmail</a></div><div class="ttdeci">ValidadorEmail(const std::string &amp;_nombre, const std::string &amp;_dominio, const std::string &amp;_extension)</div><div class="ttdoc">Constructor de la clase ValidadorEmail.</div><div class="ttdef"><b>Definition</b> ValidadorEmail.cpp:4</div></div>
+<div class="ttc" id="aclass_validador_email_html_a7207690077711b790a82d09e50184616"><div class="ttname"><a href="class_validador_email.html#a7207690077711b790a82d09e50184616">ValidadorEmail::validarCorreo</a></div><div class="ttdeci">void validarCorreo(std::vector&lt; std::string &gt; &amp;almacenCorreos)</div><div class="ttdoc">Valida el correo electronico y lo almacena en un vector.</div><div class="ttdef"><b>Definition</b> ValidadorEmail.cpp:7</div></div>
+<div class="ttc" id="aclass_validador_email_html_a90fd08fed48564e17d591906b501730d"><div class="ttname"><a href="class_validador_email.html#a90fd08fed48564e17d591906b501730d">ValidadorEmail::nombre</a></div><div class="ttdeci">std::string nombre</div><div class="ttdef"><b>Definition</b> ValidadorEmail.hpp:16</div></div>
+<div class="ttc" id="aclass_validador_email_html_aa1127cb90695ec85592f6f826434de23"><div class="ttname"><a href="class_validador_email.html#aa1127cb90695ec85592f6f826434de23">ValidadorEmail::extension</a></div><div class="ttdeci">std::string extension</div><div class="ttdef"><b>Definition</b> ValidadorEmail.hpp:18</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

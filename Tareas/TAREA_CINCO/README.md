@@ -29,7 +29,7 @@ Donde se creará un ejecutable **.\main.exe** donde se podrá correr el código.
 
 Enlace del código fuente:
 
-> 
+> https://tarea5jplaurent.netlify.app/
 
 ## Parte Teórica
 
