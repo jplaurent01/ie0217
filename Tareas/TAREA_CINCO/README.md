@@ -87,6 +87,7 @@ compleja, especialmente en contextos donde el tiempo de ejecución es crítico?
     > + Una regla implicita inida a **make** cómo construir un archivo a partir de otro archivo sin necesidad de especificar explicitamente cada archivo. Por otro lado, una regla explícita indica de manera explicita cómo construir un archivo a partir de otros.
 
 13. Explique el propósito de las macros (variables) en un Makefile.
+
 14. ¿Qué es un objetivo (target) en un Makefile y cómo se define?
 15. ¿Por qué es útil dividir un proyecto de C++ en múltiples archivos fuente y cómo ayuda el uso de Makefiles en este enfoque?
 16. ¿Cómo se pueden definir dependencias entre los archivos fuente en un Makefile?
