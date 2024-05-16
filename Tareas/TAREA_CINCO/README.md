@@ -27,6 +27,9 @@ De manera adicional puede ejecutar el código dentro de la carpeta **\.src** de 
 
 Donde se creará un ejecutable **.\main.exe** donde se podrá correr el código.
 
+Enlace del código fuente:
+
+> 
 
 ## Parte Teórica
 

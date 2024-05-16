@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @brief Se realiza el llamado a las funciones y menus del programa
+ * @brief Se realiza el llamado a las funciones, clase ValidadorEmail.hpp y menus del programa
  *
  * @author Jose Pablo Laurent Chaves
  * @date 2024
@@ -21,9 +21,9 @@ enum Opciones {
 };
 
 /**
- * @brief Ejecuta menus del programa y realiza el llamado a multiples funciones de Funciones.hpp.
+ * @brief Ejecuta menus del programa y realiza el llamado a multiples funciones de Funciones.hpp y clase ValidadorEmail.hpp.
  * 
- * @return 0 al terminar la ejecuación del programa.
+ * @return 0 al terminar la ejecuacion del programa.
  */
 int main() {
         int opcion;

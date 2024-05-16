@@ -22,7 +22,7 @@ void ValidadorEmail::validarCorreo(std::vector<std::string>& almacenCorreos){
             //Verifico que el dominio contenga unicamente @, letras y puntos
             if (std::regex_match(dominio, patternDominio)){
                 
-                validarExtensión(extension);
+                validarExtension(extension);
                 std::regex patternExtension(R"(\.[a-zA-Z.]*[a-zA-Z]$)");
 
                 if (std::regex_match(extension, patternExtension)){

@@ -10,7 +10,7 @@ void validarNombre(const std::string &nombre){
 
         //Verifico que el tamnio del nombre se 15 excluyendo . y guiones
         if (nombreTamanio(nombre, 0) <= 15){
-            //Indica que los puntos y guiones deben aparecer 2 o más veces consecutivas
+            //Indica que los puntos y guiones deben aparecer 2 o mas veces consecutivas
             std::regex pattern("[.-_]{2,}");
             //Verifica que no existan . y guiones consecutivos
             if (!std::regex_search(nombre, pattern)){
@@ -155,7 +155,7 @@ std::vector<std::string> splitString(const std::string &nombre){
     
 };
 
-void validarExtensión(const std::string &extension){
+void validarExtension(const std::string &extension){
 
     char primerCaracter = extension.front();  //primer caracter
     char ultimoCaracter = extension.back();   //ultimo caracter
