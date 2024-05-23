@@ -4,7 +4,7 @@
 
 Room 5, Integrantes: Jose Pablo Laurent, Ismael Jimenez, Andrés Bonilla.
 
-En el presente documento se analizan dos bases de datos SQL **hospital.db**, que contiene tablas de relacionadas con información sobre los pacientes, doctores, admición y nombres de las provincias. Por otro la base de datos **northwind.db** contiene infromación relacionada sobre productos,categorias,detalles de una orden, ordenes, clientes, entre otros más.
+En el presente documento se analizan dos bases de datos SQL **hospital.db**, que contiene tablas relacionadas con información sobre los pacientes, doctores, admisión  y nombres de las provincias. Por otro la base de datos **northwind.db** contiene información  relacionada sobre productos, categorías,detalles de una orden, ordenes, clientes, entre otros más.
 
 ### Hospital.db
 
