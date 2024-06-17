@@ -6,7 +6,6 @@
 
 1. ¿Qué es una base de datos relacional y cuáles son sus características fundamentales?
 
-
     > Una base de datos relacional es una base de datos que almacena y  permite acceder a datos que están relacionados entre sí. Este tipo de base de datos organiza la información en tablas, cada tabla posee filas, donde cada fila representa un registro único identificado por una clave, además posee columnas que poseen atributos de los datos, de esta manera se logra crear relaciones entre distintos datos en la base de datos. Entre sus principales características destacan gestión de datos de almacenamiento físico sin que influya en acceso de datos mediante estructuras lógicas, presencia de un modelo relacional que permite organizar la base de datos en tablas, vistas e índices y por último, su modelo relacional permite mantener uniformidad de los datos almacenados.
 
 
@@ -28,11 +27,19 @@
 
 
 5. ¿Qué son las vistas (views) en SQL y cuáles son los beneficios y limitaciones de su uso?
+
+    > Las **views** son tablas virtuales que contienen filas y columnas, pero no se almacenan en el disco como lo hace una tabla. Generalemente una view reliza una query que devuelve un conjunto de datos de una o más tablas. Entre sus beneficios destaca la comodidad para visualizar los datos, permiten reutilización y mantenimiento del código, por otro lado, entre sus limitaciones destacan que no todas las vistas son capaces de actualizar, las vistas dependen de otras tablas por loq ue si una de estas se modifica, las vistas se tornaran inválidas, por último, las vistas no permiten realizar ciertas operaciones en SQL de maera directa.
+
 6. ¿Qué es la normalización en bases de datos y cuáles son las diferentes formas normales (normal forms)?
+
 7. ¿Cómo funcionan los ́índices en SQL y cuál es su impacto en el rendimiento de las consultas?
+
 8. ¿Qué es SQL Injection y cuáles son las mejores prácticas para prevenir este tipo de ataque?
+
 9. ¿Qué son los procedimientos almacenados (stored procedures) en SQL y cómo pueden mejorar la eficiencia y seguridad de las operaciones de base de datos?
+
 10. ¿Cómo se implementan las relaciones uno a uno, uno a muchos y muchos a muchos en una base de datos relacional y qué consideraciones se deben tener en cuenta en cada caso?
 
 
 
+## Parte Práctica
