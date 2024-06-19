@@ -530,3 +530,159 @@ En la imagen de la Figura 4 se muestra un extracto de los requisitos de los curs
     <p><b>Figura 3:</b> Extracto contenido tabla requisitos.</p>
 </div>
 
+#### 3. Consultas: 
+
+A continuación se muestra el código para listar todos los cursos con su sigla, nombre, semestre,
+créditos, descripcion y dificultad:
+
+```sql
+-- Realiza consultas para listar todos los cursos con su sigla, nombre, semestre,
+-- creditos, descripcion y dificultad
+SELECT 
+    c.Sigla, 
+    c.Nombre, 
+    c.Semestre, 
+    c.Creditos, 
+    d.Descripcion, 
+    d.Dificultad
+FROM 
+    Cursos c
+INNER JOIN 
+    Descripciones d ON c.CursoID = d.CursoID;
+```
+El código anterior accede a las tablas de Cursos y Descripciones mediante un álias de **c** para cursos y **d** para descripción, luego el mando **INNER JOIN** une las dos tablas mediante una condición de igualdad que es el número de identificación del curso **CursoID**.
+
+<div style="text-align: center;">
+    <img src=".\images\lectura_1.PNG" alt="lectura_1" />
+    <p><b>Figura 4:</b> Extracto contenido de la  consulta para listar todos los cursos con su sigla, nombre, semestre, créditos, descripción y dificultad.</p>
+</div>
+
+En la imagen de la Figura 4 se observa un extracto del contenido de la consulta, en ella se logra apreciar las silas, nombres, semetres, cantidad de créditos, descripciones y dificultad de cada curso.
+
+A continuación se realiza la consulta para listar todos los requisitos de un curso específico, el curso selecciona es **electrónica industrial**.
+
+```sql
+-- Realiza consultas para listar todos los requisitos de un curso especifico.
+-- Consultar todos los requisitos de un curso
+SELECT CursoID, RequisitoCursoID FROM Requisitos WHERE CursoID = (SELECT CursoID FROM Cursos WHERE Nombre = 'Electrónica industrial');
+```
+
+El resultado de la consulata anterior da como resultado:
+
+<div style="text-align: center;">
+    <img src=".\images\lectura_2.PNG" alt="lectura_2" />
+    <p><b>Figura 5:</b> Contenido de la  consulta para listar todos los requisitos de un curso específico.</p>
+</div>
+
+En la imagen de la Figura 5, se muestran los requisitos del curso **Electrónica industrial**, donde se obtiene que son los cursos cuyos números de identificación son 72 y 59, cuyos nombres son **MÁQUINAS ELÉCTRICAS I** y **ELECTRONICA II** de manera respectiva.
+
+Posteriormente se realiza la consulta para listar los cursos que no son optativos, a la hora de elaborar el plan se establece que estos cursos son todos aquellos que se imparte en los semstres **IX** y **X**.
+
+```sql
+SELECT * FROM Cursos WHERE Semestre = 'IX' OR  Semestre = 'X';
+```
+Del código anterior se selección toda la información de la tabla cursos que cumple que su semestre sea  **IX** o **X**, dando como resultado la imagen de la Figura 6.
+
+<div style="text-align: center;">
+    <img src=".\images\lectura_3.PNG" alt="lectura_3" />
+    <p><b>Figura 6:</b>  Consulta para listar los cursos que no son optativos.</p>
+</div>
+
+A continuación se realiza la consulta de todos los cursos pertenecientes al semestre X.
+
+```sql
+SELECT * FROM Cursos WHERE Semestre = 'X';
+```
+Del codigo anterior se selecionan todas las columnas de la tabla Cursos cuyo semestre es igual a **X**, dando como resultado la imagen de la Figura 7.
+
+<div style="text-align: center;">
+    <img src=".\images\lectura_4.PNG" alt="lectura_4" />
+    <p><b>Figura 7:</b>  Consulta los cursos que pertenecen al semestre X.</p>
+</div>
+
+#### 4. Actualizaciones:
+
+Se pide actualizar el nombre y créditos de 3 de los cursos optativos, pra ello se eligen los cursos cuyo número de identificación es 7,8 y 9, es decir los cursos **Programación bajo plataformas abiertas**, **Estructuras abstractas de datos y algoritmos para ingeniería** y **Estructuras de computadores digitales I**, para ello se implementa el siguiente código:
+
+```sql
+UPDATE Cursos SET Nombre = 'Nombre curso editado', Creditos= 1 WHERE CursoID = 7;
+UPDATE Cursos SET Nombre = 'Nombre curso editado', Creditos= 1 WHERE CursoID = 8;
+UPDATE Cursos SET Nombre = 'Nombre curso editado', Creditos= 1 WHERE CursoID = 9;
+```
+
+Adicionalmente se pide actualizar la descripción y dificultad de 3 cursos, para ello se ecogen los mismo 3 cursos mencionados con anterioridad, para ello se utiliza el siguiente código:
+
+```sql
+UPDATE Descripciones SET Descripcion = "Descripcion curso editada", Dificultad = "Dificil"  WHERE CursoID = 7;
+UPDATE Descripciones SET Descripcion = "Descripcion curso editada", Dificultad = "Dificil"  WHERE CursoID = 8;
+UPDATE Descripciones SET Descripcion = "Descripcion curso editada", Dificultad = "Dificil"  WHERE CursoID = 9;
+```
+
+Finalmente se imprmie el resultado mediante el siguiente comando:
+```sql
+SELECT
+	c.CursoID,
+    c.Sigla, 
+    c.Nombre, 
+    c.Semestre, 
+    c.Creditos, 
+    d.Descripcion, 
+    d.Dificultad
+FROM 
+    Cursos c
+INNER JOIN 
+    Descripciones d ON c.CursoID = d.CursoID;
+```
+Del comando anterior se obtiene el resultado visto en la imagen de la Figura 8.
+
+<div style="text-align: center;">
+    <img src=".\images\update.PNG" alt="update" />
+    <p><b>Figura 8:</b>  Actualización del nombre y créditos de 3 de los cursos optativos y a la descripción y dificultad</p>
+</div>
+
+De la imagen de la Figura 8 se observa que se han actualizado los cursos cuyos id son 7,8 y 9, en la imagen de la Figura 2 se observa su contenido anterior.
+
+#### 5. Eliminaciones
+
+Se pide eliminar un curso inventado y 2 cursos del plan y asegurando eliminar tambien sus descripciones asociadas, para ello se selecionan los cursos IE-1201 **Robótica avanzada**, IE-0579 **Administración de sistemas** y IE-0613 **Electrónica industrial**, para ello se utiliza el código que se muestra a continuación:
+
+```sql
+-- Eliminar un curso inventado y 2 cursos del plan y sus descripciones asociadas.
+DELETE FROM Cursos WHERE Sigla IN ('IE-1201', 'IE-0579', 'IE-0613');
+SELECT Sigla, Nombre FROM Cursos WHERE Sigla IN ('IE-1201', 'IE-0579', 'IE-0613');
+SELECT * FROM Descripciones WHERE CursoID IN ((SELECT CursoID FROM Cursos WHERE Sigla = 'IE-1201'), (SELECT CursoID FROM Cursos WHERE Sigla = 'IE-0579'),   (SELECT CursoID FROM Cursos WHERE Sigla = 'IE-0613'));
+```
+El código anterior se encarga de eliminar los cursos mencionados así como sus requisitos y descripciones, ya que dentro de las estructuras de las tablas requisitos y descripciones se estableció un **ON DELETE CASCADE** para las llaves foráneas, luego al ejecutar los dos SELECT se obtendrán los siguientes resultado:
+
+<div style="text-align: center;">
+    <img src=".\images\delete1.PNG" alt="delete1" />
+    <p><b>Figura 9:</b>  Eliminación de un curso inventado y 2 cursos del plan.</p>
+</div>
+
+<div style="text-align: center;">
+    <img src=".\images\delete2.PNG" alt="delete2" />
+    <p><b>Figura 10:</b>  Eliminación descripciones.</p>
+</div>
+
+En las imágenes de las Figuras 9 y 10, se observa el resultado de las eliminaciones planteadas.
+Finalmente se solicita eliminar los requisitos específicos de 2 cursos existentes, para ello se seleciona el curso Anteproyecto de TFG y el curso IE-0217 cuyo nombre fue actualizado a **Nombre curso editado**.
+
+```sql
+-- Eliminar requisitos de 2 cursos especificos.
+-- VERIFICAR
+SET @curso_id_Anteproyecto = (SELECT CursoID FROM Cursos WHERE Nombre = 'Anteproyecto de TFG');
+SET @curso_id_CursoEditado  = (SELECT CursoID FROM Cursos WHERE Sigla = 'IE-0217');
+
+DELETE FROM Requisitos WHERE CursoID = @curso_id_administracion;
+DELETE FROM Requisitos WHERE CursoID =  @curso_id_CursoEditado;
+
+SELECT * FROM Requisitos WHERE CursoID IN (@curso_id_Anteproyecto, @curso_id_CursoEditado);
+```
+El código anterior mediante los comandos SET crea dos variables que almacenan el número de identicación a partir del nombre y siglas de los cursos, luego el comando delete se encarga de eliminar los requisitos de los cursos a través de su id, finalmente se imprime el contenido de la tabla requisitos para los números de identificación  de los cursos.
+
+<div style="text-align: center;">
+    <img src=".\images\delete3.PNG" alt="delete3" />
+    <p><b>Figura 11:</b>  Eliminación requisitos.</p>
+</div>
+
+En la imagen de la Figura 11 se observa que la eliminación ha sido correctamente efectuada.

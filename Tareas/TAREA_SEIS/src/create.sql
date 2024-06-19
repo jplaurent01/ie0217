@@ -256,8 +256,6 @@ INSERT INTO Descripciones (CursoID, Descripcion, Dificultad) VALUES
 ((SELECT CursoID FROM Cursos WHERE Sigla = 'IE-1201'), 'Curso avanzado sobre robótica.', 'Dificil'),
 ((SELECT CursoID FROM Cursos WHERE Sigla = 'IE-1202'), 'Aplicación de la ciencia de datos en ingeniería.', 'Media');
 
-
-/*
 -- Leer (Read)
 -- 3. Consultas:
 -- Realiza consultas para listar todos los cursos con su sigla, nombre, semestre,
@@ -276,12 +274,14 @@ INNER JOIN
 
 -- Realiza consultas para listar todos los requisitos de un curso especifico.
 -- Consultar todos los requisitos de un curso
-SELECT CursoID, RequisitoCursoID FROM Requisitos WHERE CursoID = (SELECT CursoID FROM Cursos WHERE Sigla = 'IE-0613');
+SELECT CursoID, RequisitoCursoID FROM Requisitos WHERE CursoID = (SELECT CursoID FROM Cursos WHERE Nombre = 'Electrónica industrial');
 -- Realizar consulta para listar los cursos que no son optativos.
 -- PUEDO CONSULTAR POR LOS CURSOS CON SEMESTRE iguales A IX O X
 SELECT * FROM Cursos WHERE Semestre = 'IX' OR  Semestre = 'X';
 -- Listar los cursos que pertenecen al semestre X.
 SELECT * FROM Cursos WHERE Semestre = 'X';
+
+
 -- Actualizar (Update)
 -- 4. Actualizaciones:
 -- Actualiza el nombre y creditos de 3 de los cursos optativos (puedes agregar cursos
@@ -293,7 +293,8 @@ UPDATE Descripciones SET Descripcion = "Descripcion curso editada", Dificultad =
 UPDATE Descripciones SET Descripcion = "Descripcion curso editada", Dificultad = "Dificil"  WHERE CursoID = 8;
 UPDATE Descripciones SET Descripcion = "Descripcion curso editada", Dificultad = "Dificil"  WHERE CursoID = 9;
 
-SELECT 
+SELECT
+	c.CursoID,
     c.Sigla, 
     c.Nombre, 
     c.Semestre, 
@@ -304,7 +305,8 @@ FROM
     Cursos c
 INNER JOIN 
     Descripciones d ON c.CursoID = d.CursoID;
-    
+
+
 -- Eliminar (Delete)
 -- 5. Eliminaciones:
 -- Elimina un curso inventado y 2 cursos del plan y asegurate de que tambien se
@@ -312,36 +314,18 @@ INNER JOIN
 
 -- Eliminar un curso inventado y 2 cursos del plan y sus descripciones asociadas.
 DELETE FROM Cursos WHERE Sigla IN ('IE-1201', 'IE-0579', 'IE-0613');
+SELECT Sigla, Nombre FROM Cursos WHERE Sigla IN ('IE-1201', 'IE-0579', 'IE-0613');
+SELECT * FROM Descripciones WHERE CursoID IN ((SELECT CursoID FROM Cursos WHERE Sigla = 'IE-1201'), (SELECT CursoID FROM Cursos WHERE Sigla = 'IE-0579'),   (SELECT CursoID FROM Cursos WHERE Sigla = 'IE-0613'));
 
 -- Eliminar requisitos de 2 cursos especificos.
 -- VERIFICAR
 SET @curso_id_Anteproyecto = (SELECT CursoID FROM Cursos WHERE Nombre = 'Anteproyecto de TFG');
-SET @curso_id_CursoEditado  = (SELECT CursoID FROM Cursos WHERE Nombre = 'IE-0217');
+SET @curso_id_CursoEditado  = (SELECT CursoID FROM Cursos WHERE Sigla = 'IE-0217');
 
 DELETE FROM Requisitos WHERE CursoID = @curso_id_administracion;
-DELETE FROM Requisitos WHERE CursoID =  @curso_id_administracion;
+DELETE FROM Requisitos WHERE CursoID =  @curso_id_CursoEditado;
 
-SELECT 
-    c.Sigla, 
-    c.Nombre, 
-    c.Semestre, 
-    c.Creditos, 
-    d.Descripcion, 
-    d.Dificultad
-FROM 
-    Cursos c
-INNER JOIN 
-    Descripciones d ON c.CursoID = d.CursoID;
-    
-SELECT 
-    c.Sigla, 
-    c.Nombre, 
-    d.RequisitoCursoID
-FROM 
-    Cursos c
-INNER JOIN 
-    Requisitos d ON c.CursoID = d.CursoID;
-
+SELECT * FROM Requisitos WHERE CursoID IN (@curso_id_Anteproyecto, @curso_id_CursoEditado);
 
 
 
