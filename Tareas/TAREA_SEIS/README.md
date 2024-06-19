@@ -32,14 +32,38 @@
 
 6. ¿Qué es la normalización en bases de datos y cuáles son las diferentes formas normales (normal forms)?
 
+    > La normalización es el proceso de estructurar los datos dentro de una base de datos. Esto implica crear tablas y establecer relaciones entre ellas, siguiendo reglas que protegen los datos y hacen que la base de datos sea más eficiente al eliminar redundancias y dependencias incoherentes. Los datos redundantes ocupan espacio innecesario en el disco y complican el mantenimiento. Cuando los datos se encuentran en múltiples lugares, cualquier cambio debe realizarse de manera uniforme en todas esas ubicaciones.
+     > + Primera forma normal: Indica que se deben eliminar los  los grupos de datos repetidos en las tablas individuales, se debe crear una tabla separada para cada conjunto de datos relacionados, además se debe asignar una clave principal para identificar cada conjunto de datos relacionados, por último se debe evitar utilizar múltiples campos en la misma tabla para almacenar datos similares.
+    > + Segunda forma normal: Indica que se deben crear tablas separadas para los conjuntos de valores que se aplican a varios registros, se debe vincular estas tablas mediante una clave externa, además se debe asegurar de que los registros dependan únicamente de la clave principal de la tabla.
+    > + Tercera forma normal: Indica que se deben eliminar los campos que no dependen de una clave, esto quiere decir que los valores de un registro que no dependan de una clave no deben estar en una tabla y si un grupo de campos puede aplicarse a más de un registro, se debe considerar mover esos campos a una nueva tabla.
+    > Finalmente la cuarta y quinta formas normales existen pero rara vez se consideran en el diseño, la cuarta forma normal elimina dependencias multivaluadas, mientras que la quinta froma normal indica que las tablas descompuetas pueden vincularse con otras tablas sin perder información.
+
 7. ¿Cómo funcionan los ́índices en SQL y cuál es su impacto en el rendimiento de las consultas?
+
+    > Los índices son estructuras de datos que permiten crear una tabla en una base de datos, ellos permiten mejorar la velocidad de consultas en la tabla, así como recuperar datos de una manera más veloz, todo esto permite incremetar el rendimiento en operaciones de consulta al reducir el tiempo.
 
 8. ¿Qué es SQL Injection y cuáles son las mejores prácticas para prevenir este tipo de ataque?
 
+    > Es un ataque que permite ejecutar expresiones maliciosas de SQL. Para proteger una base de datos de un ataque SQL Injection se recomienda que el usuario no tenga acceso directo a las expresiones de consulta, para ello se deben usar parametros en SQL, que son similares a varibles que se ejecutan en el query de una manera controlada.
+    ```SQL
+    txtUserId = getRequestString("UserId");
+    txtSQL = "SELECT * FROM Users WHERE UserId = @0";
+    db.Execute(txtSQL,txtUserId);
+    ```
+    En el caso de que el usuario agregue:
+    ```SQL
+    SELECT * FROM Users WHERE UserId = 105 OR 1=1;
+    ```
+    El usuario tendrá acceso al todo el contenido de la tabla **User**.
+
 9. ¿Qué son los procedimientos almacenados (stored procedures) en SQL y cómo pueden mejorar la eficiencia y seguridad de las operaciones de base de datos?
+
+    > Los procedimientos almacenados en SQL, es un código en SQL que permite ser guardado, de esta manera el código puede ser reutilizado una y otra vez. Es decir si se tiene un query, este se puede guardar y luego se puede llamar para ejecutar, de manera adicional los procedimientos almacenados permiten parámetros. En fin mejoran la eficiencia ya que no hay que estar escribiendo código una y otra vez para ejecutar un query, esto permite reducir redundancias.
+
 
 10. ¿Cómo se implementan las relaciones uno a uno, uno a muchos y muchos a muchos en una base de datos relacional y qué consideraciones se deben tener en cuenta en cada caso?
 
+> Una relación uno a uno, es un vínculo entre la información de dos tablas,donde cada registro en cada tabla aparece unicamente una vez. Las relaciones uno a uno si tiene una tabla que contienen una lista de elementos, pero la información específica que desee capturar acerca de ellos varía según el tipo. Las realaciones uno a muchos ocurre cuando un registro de una tabla se asocia a varios registros de otra tabla. Las relaciones muchos a muchos, ocurre cuando varios registros de una tabla se vinculan a varios registros de otra tabla.
 
 
 ## Parte Práctica
