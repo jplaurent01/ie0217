@@ -34,7 +34,6 @@ CREATE TABLE IF NOT EXISTS Descripciones (
     FOREIGN KEY (CursoID) REFERENCES Cursos(CursoID) ON DELETE CASCADE
 );
 
-/*
 -- Crear (Create)
 -- 2. Insercion de datos:
 -- Inserte la información básica de los cursos y sus requisitos según el plan de estudios
@@ -257,8 +256,8 @@ INSERT INTO Descripciones (CursoID, Descripcion, Dificultad) VALUES
 ((SELECT CursoID FROM Cursos WHERE Sigla = 'IE-1201'), 'Curso avanzado sobre robótica.', 'Dificil'),
 ((SELECT CursoID FROM Cursos WHERE Sigla = 'IE-1202'), 'Aplicación de la ciencia de datos en ingeniería.', 'Media');
 
-*/
 
+/*
 -- Leer (Read)
 -- 3. Consultas:
 -- Realiza consultas para listar todos los cursos con su sigla, nombre, semestre,
