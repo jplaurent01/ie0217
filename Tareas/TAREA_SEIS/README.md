@@ -451,7 +451,7 @@ En la imagen de la Figura 2 se muestra un extracto de los cursos agregados al pl
 
 
 <div style="text-align: center;">
-    <img src=".\images\insert.PNG" alt="insert" />
+    <img src=".\images\xxx.PNG" alt="xxx" />
     <p><b>Figura 2:</b> Extracto contenido tabla cursos.</p>
 </div>
 
