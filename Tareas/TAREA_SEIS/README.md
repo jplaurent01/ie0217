@@ -1,5 +1,9 @@
 # Tarea 6
 
+## Ejecución
+
+Se recomienda compilar el arhivo denominado **create.sql** dentro de la carpeta **src** en **MySQL Workbench 8.0 CE**
+
 ## Parte Teórica
 
 
